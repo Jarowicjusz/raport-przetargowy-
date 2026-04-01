@@ -762,9 +762,9 @@ function chWeek(d) {
 
   // Generuj link do wyszukiwarki BZP/TED z tytułem przetargu
   function linkOgloszenia(t) {
-    if (t.link && t.link.includes("egospodarka") && !t.link.includes("szukaj")) {
-      return t.link;
-    }
+    var fraza = encodeURIComponent(t.title.substring(0, 100));
+    return "https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase=" + fraza;
+  }
     if (t.link && t.link.includes("pressinfo")) {
       return t.link;
     }
@@ -852,10 +852,11 @@ function render() {
 
   // Sortuj wg dopasowania (najlepsze na górze)
   list.sort((a, b) => dopasowanie(b).pct - dopasowanie(a).pct);
+  currentList = list;
 
   document.getElementById('list').innerHTML = list.map(t => {
     const dm = dopasowanie(t);
-    const powodyTxt = dm.powody.length ? 'Dopasowanie: ' + dm.powody.join(' · ') : 'Ogólne dopasowanie';
+    const powodyTxt = dm.powody.length ? 'Dopasowanie: ' + dm.powody.join(' | ') : 'Ogólne dopasowanie';
     return `
     <div class="tc">
       <div class="tc-head">
@@ -885,7 +886,7 @@ function render() {
         <div class="tc-actions">
           <a class="btn-link" href="${linkOgloszenia(t)}" target="_blank">Przejdź do ogłoszenia ↗</a>
           <button class="btn-src" onclick="alert('Nr ogłoszenia: ${t.nr}\\nŹródło: ${t.zrodlo}\\nZamawiający: ${t.zam}\\nWartość: ${t.wartosc}\\nTermin: ${t.termin}')">Szczegóły</button>
-          <button class="btn-analyze" onclick="copyAnalyzePrompt('${t.title.replace(/'/g, "\\'")}', '${t.nr}', '${t.zam}', '${t.wartosc}')">Kopiuj prompt analizy ↗</button>
+          <button class="btn-analyze" onclick="copyAnalyzePrompt(this)">Kopiuj prompt analizy ↗</button>
         </div>
       </div>
     </div>`;
@@ -945,6 +946,34 @@ function exportTXT() {
   a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
   a.download = `raport_przetargi_eventowe_tydzien${wk}_2026.txt`;
   a.click();
+}
+
+function showDetails(idx) {
+  var t = currentList[idx];
+  if (!t) return;
+  alert('Nr ogloszenia: ' + t.nr + '\nZrodlo: ' + t.zrodlo + '\nZamawiajacy: ' + t.zam + '\nWartosc: ' + t.wartosc + '\nTermin: ' + t.termin);
+}
+
+function doAnalyze(idx) {
+  var t = currentList[idx];
+  if (!t) return;
+  var txt = 'Przeprowadz szczegolowa analize przetargu: "' + t.title + '" (' + t.nr + '). Zamawiajacy: ' + t.zam + '. Wartosc: ' + t.wartosc + '. Podaj: 1) kluczowe wymagania techniczne, 2) konkurentow na rynku, 3) rekomendacje jak wygrac, 4) szanse i ryzyka.';
+  navigator.clipboard.writeText(txt).then(function() {
+    alert('Prompt skopiowany!');
+  }).catch(function() {
+    prompt('Skopiuj prompt:', txt);
+  });
+}
+
+var currentList = [];
+
+function copyAnalyzePrompt(title, nr, zam, wartosc) {
+  var txt = 'Przeprowadz analize przetargu: "' + title + '" (' + nr + '). Zamawiajacy: ' + zam + '. Wartosc: ' + wartosc;
+  navigator.clipboard.writeText(txt).then(function() {
+    alert('Prompt skopiowany!');
+  }).catch(function() {
+    prompt('Skopiuj prompt:', txt);
+  });
 }
 
 function switchTab(name) {
