@@ -1,0 +1,35 @@
+name: Cotygodniowy Raport Przetargowy
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  aktualizuj-raport:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+
+      - name: Ustaw Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Zainstaluj zaleznosci
+        run: pip install requests beautifulsoup4
+
+      - name: Uruchom skrypt
+        run: python scripts/aktualizuj_raport.py
+
+      - name: Zapisz zmiany
+        run: |
+          git config user.name "Raport Bot"
+          git config user.email "bot@github-actions"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Aktualizacja $(date '+%d.%m.%Y')"
+          git push
