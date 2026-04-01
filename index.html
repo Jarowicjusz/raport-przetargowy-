@@ -163,6 +163,20 @@
   .tag-mun { background: #eaf3de; color: #27500A; }
   .tag-cult { background: var(--purple-bg); color: var(--purple); }
   .tag-gray { background: var(--surface2); color: var(--text2); }
+  /* MATCH SCORE */
+  .match-bar-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .match-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+  .match-bar { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .match-fill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+  .match-fill.high { background: linear-gradient(90deg, #4ade80, #22d3ee); }
+  .match-fill.mid  { background: linear-gradient(90deg, #fbbf24, #f97316); }
+  .match-fill.low  { background: linear-gradient(90deg, #f87171, #fb923c); }
+  .match-pct { font-size: 13px; font-weight: 800; min-width: 36px; text-align: right; }
+  .match-pct.high { color: #4ade80; }
+  .match-pct.mid  { color: #fbbf24; }
+  .match-pct.low  { color: #f87171; }
+  .match-reason { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-style: italic; }
+
   .tc-actions { display: flex; gap: 8px; }
   .btn-analyze { font-size: 12px; padding: 5px 12px; background: rgba(96,165,250,0.15); color: #93c5fd; border: 1px solid rgba(96,165,250,0.3); border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-family: inherit; transition: background .12s; }
   .btn-analyze:hover { background: rgba(96,165,250,0.25); }
@@ -746,6 +760,50 @@ function chWeek(d) {
   render();
 }
 
+// ── DOPASOWANIE ──────────────────────────────────────────
+// Ocenia jak bardzo przetarg pasuje do profilu firmy (systemy eventowe)
+// Zwraca { pct: 0-100, level: 'high'|'mid'|'low', powody: [...] }
+
+const KRYTERIA = [
+  { slowa: ['aplikacja mobilna','aplikację mobilną','app mobilna'], waga: 20, etykieta: 'aplikacja mobilna' },
+  { slowa: ['akredytacja','akredytacji','akredytacyjn'], waga: 18, etykieta: 'system akredytacji' },
+  { slowa: ['ticketing','sprzedaż biletów','sprzedaży biletów','system biletowy'], waga: 18, etykieta: 'ticketing / bilety' },
+  { slowa: ['platforma eventowa','zarządzania eventami','zarządzania imprezami','event management'], waga: 16, etykieta: 'platforma eventowa' },
+  { slowa: ['rejestracja uczestników','rejestracji uczestników'], waga: 15, etykieta: 'rejestracja uczestników' },
+  { slowa: ['impreza masowa','imprez masowych','masowej imprezy'], waga: 14, etykieta: 'impreza masowa' },
+  { slowa: ['konferencja','konferencji','kongres'], waga: 10, etykieta: 'konferencja / kongres' },
+  { slowa: ['festiwal','festiwalu'], waga: 10, etykieta: 'festiwal' },
+  { slowa: ['stadion','arena','hala widowisk'], waga: 10, etykieta: 'stadion / arena' },
+  { slowa: ['ios','android','mobiln'], waga: 8, etykieta: 'platforma mobilna' },
+  { slowa: ['rfid','qr kod','kontrola dostępu','bramka'], waga: 8, etykieta: 'kontrola dostępu' },
+  { slowa: ['system informatyczny','oprogramowanie','platforma','wdrożenie'], waga: 5, etykieta: 'system IT' },
+];
+
+// Premia za typ podmiotu (interesują nas SSP i CULT)
+const PREMIA_TYP = { SSP: 10, CULT: 8, MUN: 4 };
+// Premia za kategorię
+const PREMIA_KAT = { app: 12, acc: 12, plat: 8 };
+
+function dopasowanie(t) {
+  const tekst = (t.title + ' ' + t.opis + ' ' + t.tagi.join(' ')).toLowerCase();
+  let punkty = 0;
+  const powody = [];
+
+  for (const k of KRYTERIA) {
+    if (k.slowa.some(s => tekst.includes(s))) {
+      punkty += k.waga;
+      powody.push(k.etykieta);
+    }
+  }
+
+  punkty += (PREMIA_TYP[t.typ] || 0);
+  punkty += (PREMIA_KAT[t.kat] || 0);
+
+  const pct = Math.min(Math.round(punkty / 1.3), 100);
+  const level = pct >= 70 ? 'high' : pct >= 40 ? 'mid' : 'low';
+  return { pct, level, powody: powody.slice(0, 3) };
+}
+
 function render() {
   const ft = document.getElementById('f-typ').value;
   const fk = document.getElementById('f-kat').value;
@@ -782,12 +840,24 @@ function render() {
     return;
   }
 
-  document.getElementById('list').innerHTML = list.map(t => `
+  // Sortuj wg dopasowania (najlepsze na górze)
+  list.sort((a, b) => dopasowanie(b).pct - dopasowanie(a).pct);
+
+  document.getElementById('list').innerHTML = list.map(t => {
+    const dm = dopasowanie(t);
+    const powodyTxt = dm.powody.length ? 'Dopasowanie: ' + dm.powody.join(' · ') : 'Ogólne dopasowanie';
+    return `
     <div class="tc">
       <div class="tc-head">
         <div class="tc-title">${t.title}</div>
         <span class="badge ${stCls[t.status]}">${stLbl[t.status]}</span>
       </div>
+      <div class="match-bar-wrap">
+        <span class="match-label">Dopasowanie</span>
+        <div class="match-bar"><div class="match-fill ${dm.level}" style="width:${dm.pct}%"></div></div>
+        <span class="match-pct ${dm.level}">${dm.pct}%</span>
+      </div>
+      <div class="match-reason">${powodyTxt}</div>
       <div class="tc-meta">
         <span>🏢 <b>${t.zam}</b></span>
         <span>💰 <b>${t.wartosc}</b></span>
@@ -807,7 +877,8 @@ function render() {
           <button class="btn-analyze" onclick="copyAnalyzePrompt('${t.title.replace(/'/g, "\\'")}', '${t.nr}', '${t.zam}', '${t.wartosc}')">Kopiuj prompt analizy ↗</button>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function copyAnalyzePrompt(title, nr, zam, wartosc) {
