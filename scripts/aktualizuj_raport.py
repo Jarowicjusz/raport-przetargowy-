@@ -146,7 +146,7 @@ def mapuj(item, idx):
     zam = item.get("zam", "") or "Zamawiajacy publiczny"
     termin = item.get("termin", "-")
     nr = item.get("nr") or "BZP-{:06d}".format(idx)
-    link = item.get("link") or "https://przetargi.egospodarka.pl/szukaj/{}/0/1/".format(quote_plus(tytul[:40]))
+    llink = item.get("link") or "https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase={}".format(quote_plus(tytul[:80]))
     return {
         "id": "PT{:03d}".format(idx),
         "title": tytul,
