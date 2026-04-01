@@ -765,12 +765,6 @@ function chWeek(d) {
     var fraza = encodeURIComponent(t.title.substring(0, 100));
     return "https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase=" + fraza;
   }
-    if (t.link && t.link.includes("pressinfo")) {
-      return t.link;
-    }
-    var tytulSkrot = t.title.substring(0, 80);
-    return "https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase=" + encodeURIComponent(tytulSkrot);
-  }
 // Ocenia jak bardzo przetarg pasuje do profilu firmy (systemy eventowe)
 // Zwraca { pct: 0-100, level: 'high'|'mid'|'low', powody: [...] }
 
