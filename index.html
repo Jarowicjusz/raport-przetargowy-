@@ -176,6 +176,17 @@
   .match-pct.mid  { color: #fbbf24; }
   .match-pct.low  { color: #f87171; }
   .match-reason { font-size: 11px; color: var(--text3); margin-bottom: 10px; font-style: italic; }
+  .match-info { cursor: pointer; color: var(--accent); font-size: 12px; margin-left: 4px; }
+  .match-info:hover { color: #fff; }
+  .match-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center; }
+  .match-modal.open { display:flex; }
+  .match-modal-box { background:var(--surface); border:1px solid var(--border2); border-radius:12px; padding:24px; max-width:480px; width:90%; }
+  .match-modal-box h3 { color:var(--accent); margin-bottom:12px; font-size:15px; }
+  .match-modal-box table { width:100%; border-collapse:collapse; font-size:12px; }
+  .match-modal-box td { padding:5px 8px; border-bottom:1px solid var(--border); }
+  .match-modal-box td:first-child { color:var(--text2); }
+  .match-modal-box td:last-child { color:var(--accent); font-weight:700; text-align:right; }
+  .match-modal-close { margin-top:16px; background:var(--accent-dark); color:#fff; border:none; padding:8px 20px; border-radius:6px; cursor:pointer; font-family:inherit; }
 
   .tc-actions { display: flex; gap: 8px; }
   .btn-analyze { font-size: 12px; padding: 5px 12px; background: rgba(96,165,250,0.15); color: #93c5fd; border: 1px solid rgba(96,165,250,0.3); border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-family: inherit; transition: background .12s; }
@@ -364,7 +375,27 @@
   <!-- SOURCES SECTION -->
   <div class="sources-section">
     <div class="divider"></div>
-    <div class="sec-hdr" style="margin-bottom:16px;">Gdzie szukać przetargów — przewodnik po źródłach</div>
+    <div class="sec-hdr" style="margin-bottom:24px;margin-top:32px;">🎯 Jak obliczamy procent dopasowania?</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:32px;">
+        <p style="font-size:12px;color:var(--text2);margin-bottom:16px;line-height:1.7;">Algorytm analizuje tytuł i opis każdego przetargu pod kątem słów kluczowych istotnych dla branży eventowej i IT. Każde trafienie daje punkty — suma przeliczana jest na wynik procentowy (max 100%). Przetargi są sortowane od najlepiej dopasowanych.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;font-size:12px;margin-bottom:14px;">
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Aplikacja mobilna</span><span style="color:var(--green);font-weight:700">+20 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Akredytacja uczestników</span><span style="color:var(--green);font-weight:700">+18 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Ticketing / bilety</span><span style="color:var(--green);font-weight:700">+18 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Platforma eventowa</span><span style="color:var(--green);font-weight:700">+16 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Rejestracja uczestników</span><span style="color:var(--green);font-weight:700">+15 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Impreza masowa</span><span style="color:var(--green);font-weight:700">+14 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Konferencja / kongres</span><span style="color:var(--amber);font-weight:700">+10 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Festiwal</span><span style="color:var(--amber);font-weight:700">+10 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Stadion / arena</span><span style="color:var(--amber);font-weight:700">+10 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">iOS / Android / mobilny</span><span style="color:var(--amber);font-weight:700">+8 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">RFID / QR / kontrola dostępu</span><span style="color:var(--amber);font-weight:700">+8 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">System IT / oprogramowanie</span><span style="color:var(--text3);font-weight:700">+5 pkt</span></div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);">Premia za typ podmiotu: Spółki Skarbu Państwa +10 pkt · Instytucje kultury/sportu +8 pkt · Spółki miejskie +4 pkt &nbsp;|&nbsp; Suma punktów ÷ 1.3 = wynik końcowy (max 100%)</p>
+      </div>
+
+      <div class="sec-hdr" style="margin-bottom:16px;">Gdzie szukać przetargów — przewodnik po źródłach</div>
 
     <div class="sources-tabs">
       <button class="tab-btn active" onclick="switchTab('free')">Źródła bezpłatne</button>
@@ -648,42 +679,66 @@
 
 </div>
 
+<!-- MODAL: jak liczone jest dopasowanie -->
+<div class="match-modal" id="matchModal" onclick="if(event.target===this)closeMatchInfo()">
+  <div class="match-modal-box">
+    <h3>🎯 Jak liczone jest dopasowanie?</h3>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;">Algorytm analizuje tytuł i opis przetargu pod kątem słów kluczowych ważnych dla Twojej branży. Każde słowo daje punkty — suma jest przeliczana na procenty.</p>
+    <table>
+      <tr><td>Aplikacja mobilna</td><td>+20 pkt</td></tr>
+      <tr><td>Akredytacja uczestników</td><td>+18 pkt</td></tr>
+      <tr><td>Ticketing / sprzedaż biletów</td><td>+18 pkt</td></tr>
+      <tr><td>Platforma eventowa</td><td>+16 pkt</td></tr>
+      <tr><td>Rejestracja uczestników</td><td>+15 pkt</td></tr>
+      <tr><td>Impreza masowa</td><td>+14 pkt</td></tr>
+      <tr><td>Konferencja / kongres</td><td>+10 pkt</td></tr>
+      <tr><td>Festiwal</td><td>+10 pkt</td></tr>
+      <tr><td>Stadion / arena</td><td>+10 pkt</td></tr>
+      <tr><td>iOS / Android / mobilny</td><td>+8 pkt</td></tr>
+      <tr><td>RFID / QR / kontrola dostępu</td><td>+8 pkt</td></tr>
+      <tr><td>System IT / oprogramowanie</td><td>+5 pkt</td></tr>
+    </table>
+    <p style="font-size:11px;color:var(--text3);margin-top:10px;">Premia za typ podmiotu: Spółki SP +10 pkt, Instytucje kultury +8 pkt, Spółki miejskie +4 pkt. Suma punktów ÷ 1.3 = wynik końcowy (max 100%).</p>
+    <button class="match-modal-close" onclick="closeMatchInfo()">Zamknij</button>
+  </div>
+</div>
+
 <script>
 const DATA = [
   {
     "id": "PT001",
-    "title": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej",
+    "title": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej - 3 czesci",
     "zam": "Regionalny Osrodek Polityki Spolecznej w Lublinie",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-10",
-    "nr": "2026/BZP-20018207901",
+    "nr": "BZP-20018207901",
     "zrodlo": "BZP",
     "woj": "Lubelskie",
     "link": "https://www.przetargi.egospodarka.pl/20018207901_Kompleksowa-organizacja-trzech-konferencji-z-obszaru-ekonomii-spolecznej-z-podzialem-na-3-czesci_2026_2.html",
-    "opis": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej z podzialem na 3 czesci. Zamowienie obejmuje kompleksowa obsluge logistyczna, techniczna i merytoryczna konferencji.",
+    "opis": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej z podzialem na 3 czesci. Zamowienie obejmuje kompleksowa obsluge logistyczna, techniczna i merytoryczna konferencji w Lublinie.",
     "tagi": [
       "konferencja",
       "organizacja",
-      "Lubelskie"
+      "ekonomia spoleczna"
     ]
   },
   {
     "id": "PT002",
-    "title": "Kompleksowa organizacja dwoch konferencji - projekt Efektywna polityka spoleczna w wojewodztwie lubelskim",
+    "title": "Kompleksowa organizacja dwoch konferencji - projekt Efektywna polityka spoleczna woj. lubelskie",
     "zam": "Regionalny Osrodek Polityki Spolecznej w Lublinie",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-09",
-    "nr": "2026/BZP-20018171801",
+    "nr": "BZP-20018171801",
     "zrodlo": "BZP",
     "woj": "Lubelskie",
     "link": "https://www.przetargi.egospodarka.pl/20018171801_Kompleksowa-organizacja-dwoch-konferencji-z-podzialem-na-2-czesci-Usluga-realizowana-jest-w-ramach-projektu-pozakonkursowego-pt-Efektywna-polityka-spoleczna-w-wojewodztwie-lubelskim_2026_2.html",
-    "opis": "Kompleksowa organizacja dwoch konferencji z podzialem na 2 czesci. Usluga realizowana jest w ramach projektu pozakonkursowego Efektywna polityka spoleczna w wojewodztwie lubelskim.",
+    "opis": "Kompleksowa organizacja dwoch konferencji z podzialem na 2 czesci w ramach projektu Efektywna polityka spoleczna w wojewodztwie lubelskim.",
     "tagi": [
       "konferencja",
       "organizacja",
@@ -692,18 +747,18 @@ const DATA = [
   },
   {
     "id": "PT003",
-    "title": "Kompleksowa organizacja i obsluga warsztatow 2026 - projekt Pomoc Techniczna dla Funduszy Europejskich",
+    "title": "Kompleksowa organizacja i obsluga warsztatow 2026 - Pomoc Techniczna dla Funduszy Europejskich",
     "zam": "Urzad Statystyczny w Zielonej Gorze",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-10",
-    "nr": "2026/BZP-20018068801",
+    "nr": "BZP-20018068801",
     "zrodlo": "BZP",
     "woj": "Lubuskie",
     "link": "https://www.przetargi.egospodarka.pl/20018068801_Kompleksowa-organizacja-i-obsluga-warsztatow-w-2026-roku-w-ramach-realizacji-projektu-wspolfinansowanego-ze-srodkow-programu-Pomoc-Techniczna-dla-Funduszy-Europejskich-2021-2027_2026_2.html",
-    "opis": "Kompleksowa organizacja i obsluga warsztatow w 2026 roku w ramach realizacji projektu wspolfinansowanego ze srodkow programu Pomoc Techniczna dla Funduszy Europejskich 2021-2027.",
+    "opis": "Kompleksowa organizacja i obsluga warsztatow w 2026 roku - projekt Pomoc Techniczna dla Funduszy Europejskich 2021-2027.",
     "tagi": [
       "warsztaty",
       "organizacja",
@@ -712,18 +767,18 @@ const DATA = [
   },
   {
     "id": "PT004",
-    "title": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej - woj. swietokrzyskie 2026",
+    "title": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej - woj. swietokrzyskie",
     "zam": "Urzad Marszalkowski Wojewodztwa Swietokrzyskiego, Kielce",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "2026/BZP-20017972101",
+    "nr": "BZP-20017972101",
     "zrodlo": "BZP",
     "woj": "Swietokrzyskie",
     "link": "https://www.przetargi.egospodarka.pl/20017972101_Kompleksowa-organizacja-wydarzenia-pn-Sieciowanie-podmiotow-ekonomii-spolecznej-z-terenu-wojewodztwa-swietokrzyskiego-w-2026-roku_2026_2.html",
-    "opis": "Kompleksowa organizacja wydarzenia pn. Sieciowanie podmiotow ekonomii spolecznej z terenu wojewodztwa swietokrzyskiego w 2026 roku.",
+    "opis": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej z terenu wojewodztwa swietokrzyskiego w 2026 roku.",
     "tagi": [
       "event",
       "organizacja",
@@ -732,18 +787,18 @@ const DATA = [
   },
   {
     "id": "PT005",
-    "title": "Organizacja dwoch Konferencji: Konferencji MPKU oraz Konferencji EGM",
+    "title": "Organizacja dwoch Konferencji MPKU oraz Konferencji EGM - Wojewodzki Urzad Pracy Krakow",
     "zam": "Wojewodzki Urzad Pracy w Krakowie",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "2026/BZP-20017965401",
+    "nr": "BZP-20017965401",
     "zrodlo": "BZP",
     "woj": "Malopolskie",
     "link": "https://www.przetargi.egospodarka.pl/20017965401_Organizacja-dwoch-Konferencji-tj-Konferencji-MPKU-oraz-Konferencji-EGM_2026_2.html",
-    "opis": "Organizacja dwoch konferencji: Konferencji MPKU oraz Konferencji EGM. Zamowienie obejmuje kompleksowa obsluge organizacyjna, logistyczna i techniczna obu wydarzen.",
+    "opis": "Organizacja dwoch konferencji: Konferencji MPKU oraz Konferencji EGM dla Wojewodzkiego Urzedu Pracy w Krakowie.",
     "tagi": [
       "konferencja",
       "organizacja",
@@ -752,7 +807,207 @@ const DATA = [
   },
   {
     "id": "PT006",
-    "title": "Slanski Kongres Oswiaty - kompleksowa organizacja i przeprowadzenie wydarzenia",
+    "title": "Swiadczenie kompleksowych uslug cateringowych - Wydzial ds. Przedsiebiorczosci i Innowacji Krakow 2026",
+    "zam": "Gmina Miejska Krakow - Urzad Miasta Krakowa",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017936601",
+    "zrodlo": "BZP",
+    "woj": "Malopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017936601_Swiadczenie-kompleksowych-uslug-cateringowych-zlecanych-przez-Wydzial-ds-Przedsiebiorczosci-i-Innowacji-w-2026-roku_2026_2.html",
+    "opis": "Swiadczenie kompleksowych uslug cateringowych zlecanych przez Wydzial ds. Przedsiebiorczosci i Innowacji Urzedu Miasta Krakowa w 2026 roku.",
+    "tagi": [
+      "catering",
+      "imprezy",
+      "Malopolskie"
+    ]
+  },
+  {
+    "id": "PT007",
+    "title": "Usluga kompleksowej realizacji akcji informacyjno-promocyjnej Zwiedzaj Region ze Swietokrzyskim Podroznikiem Europejskim",
+    "zam": "Urzad Marszalkowski Wojewodztwa Swietokrzyskiego, Kielce",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-09",
+    "nr": "BZP-20017930901",
+    "zrodlo": "BZP",
+    "woj": "Swietokrzyskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017930901_USLUGA-KOMPLEKSOWEJ-REALIZACJI-ZADANIA-POLEGAJACEGO-NA-ZORGANIZOWANIU-AKCJI-INFORMACYJNO-PROMOCYJNEJ-PN-ZWIEDZAJ-REGION-ZE-SWIETOKRZYSKIM-PODROZNIKIEM-EUROPEJSKIM_2026_2.html",
+    "opis": "Usluga kompleksowej realizacji zadania polegajacego na zorganizowaniu akcji informacyjno-promocyjnej Zwiedzaj Region ze Swietokrzyskim Podroznikiem Europejskim.",
+    "tagi": [
+      "event",
+      "promocja",
+      "Swietokrzyskie"
+    ]
+  },
+  {
+    "id": "PT008",
+    "title": "Organizacja niebiletowanej plenerowej imprezy masowej - Swieto Miasta Chorzow 2026",
+    "zam": "Miasto Chorzow - Miasto na Prawach Powiatu",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017921301",
+    "zrodlo": "BZP",
+    "woj": "Slaskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017921301_Organizacja-niebiletowanej-plenerowej-imprezy-masowej-o-charakterze-kulturalno-rozrywkowym-w-ramach-Swieta-Miasta-Chorzow-2026_2026_2.html",
+    "opis": "Organizacja niebiletowanej plenerowej imprezy masowej o charakterze kulturalno-rozrywkowym w ramach Swieta Miasta Chorzow 2026.",
+    "tagi": [
+      "impreza masowa",
+      "plenerowa",
+      "Slaskie"
+    ]
+  },
+  {
+    "id": "PT009",
+    "title": "Realizacja dzialan informacyjno-promocyjnych projektu w ramach FEnIKS - Dom Literatury Gdansk",
+    "zam": "Dom Literatury w Gdansku",
+    "typ": "CULT",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-10",
+    "nr": "BZP-20017823301",
+    "zrodlo": "BZP",
+    "woj": "Pomorskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017823301_Realizacja-dzialan-informacyjno-promocyjnych-projektu-w-ramach-FEnIKS_2026_2.html",
+    "opis": "Realizacja dzialan informacyjno-promocyjnych projektu w ramach programu FEnIKS dla Domu Literatury w Gdansku.",
+    "tagi": [
+      "event",
+      "promocja",
+      "Pomorskie"
+    ]
+  },
+  {
+    "id": "PT010",
+    "title": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki - Chorzow",
+    "zam": "Planetarium i Obserwatorium Astronomiczne im. M. Kopernika, Chorzow",
+    "typ": "CULT",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-10",
+    "nr": "BZP-20017776201",
+    "zrodlo": "BZP",
+    "woj": "Slaskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017776201_Kompleksowa-organizacja-festiwalu-COSMICON-w-Planetarium-Slaskim-Parku-Nauki_2026_2.html",
+    "opis": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki w Chorzowie. Zamowienie obejmuje kompleksowa obsluge organizacyjna i techniczna festiwalu naukowego.",
+    "tagi": [
+      "festiwal",
+      "nauka",
+      "Slaskie"
+    ]
+  },
+  {
+    "id": "PT011",
+    "title": "Organizacja kolejnej edycji Swieta Wielkopolski - impreza plenerowa Piknik na Fest",
+    "zam": "Urzad Marszalkowski Wojewodztwa Wielkopolskiego w Poznaniu",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-10",
+    "nr": "BZP-20017743201",
+    "zrodlo": "BZP",
+    "woj": "Wielkopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017743201_Organizacja-kolejnej-edycji-Swieta-Wielkopolski-imprezy-plenerowej-pod-nazwa-Piknik-na-Fest_2026_2.html",
+    "opis": "Organizacja kolejnej edycji Swieta Wielkopolski - imprezy plenerowej pod nazwa Piknik na Fest. Duza impreza masowa na poziomie regionalnym.",
+    "tagi": [
+      "impreza plenerowa",
+      "piknik",
+      "Wielkopolskie"
+    ]
+  },
+  {
+    "id": "PT012",
+    "title": "Swiadczenie uslugi w zakresie organizacji i obslugi seminarium naukowego - Instytut Dendrologii PAN",
+    "zam": "Instytut Dendrologii Polskiej Akademii Nauk, Kornik",
+    "typ": "CULT",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017579001",
+    "zrodlo": "BZP",
+    "woj": "Wielkopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017579001_Swiadczenie-uslugi-w-zakresie-organizacji-i-obslugi-seminarium-naukowego_2026_2.html",
+    "opis": "Swiadczenie uslugi w zakresie organizacji i obslugi seminarium naukowego dla Instytutu Dendrologii Polskiej Akademii Nauk w Korniku.",
+    "tagi": [
+      "seminarium",
+      "nauka",
+      "Wielkopolskie"
+    ]
+  },
+  {
+    "id": "PT013",
+    "title": "Swieto Wisly 2026 - Miasto Stoleczne Warszawa",
+    "zam": "Miasto Stoleczne Warszawa",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017577601",
+    "zrodlo": "BZP",
+    "woj": "Mazowieckie",
+    "link": "https://www.przetargi.egospodarka.pl/20017577601_Swieto-Wisly-2026_2026_2.html",
+    "opis": "Organizacja Swieta Wisly 2026 - duzej imprezy plenerowej w Warszawie organizowanej przez Miasto Stoleczne Warszawa.",
+    "tagi": [
+      "impreza plenerowa",
+      "Warszawa",
+      "Mazowieckie"
+    ]
+  },
+  {
+    "id": "PT014",
+    "title": "Usluga organizacji pikniku rekreacyjno-edukacyjnego - Siec Badawcza Lukasiewicz Instytut Lotnictwa",
+    "zam": "Siec Badawcza Lukasiewicz - Instytut Lotnictwa, Warszawa",
+    "typ": "SSP",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017572701",
+    "zrodlo": "BZP",
+    "woj": "Mazowieckie",
+    "link": "https://www.przetargi.egospodarka.pl/20017572701_DZP-26-10-2026-usluga-organizacji-pikniku-rekreacyjno-edukacyjnego_2026_2.html",
+    "opis": "Usluga organizacji pikniku rekreacyjno-edukacyjnego dla pracownikow i rodzin Instytutu Lotnictwa w Warszawie.",
+    "tagi": [
+      "piknik",
+      "event korporacyjny",
+      "Mazowieckie"
+    ]
+  },
+  {
+    "id": "PT015",
+    "title": "Kompleksowa organizacja warsztatow dla startupow 2026 - Wojewodztwo Podlaskie",
+    "zam": "Wojewodztwo Podlaskie, Bialystok",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017482301",
+    "zrodlo": "BZP",
+    "woj": "Podlaskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017482301_BZP-272-15-2026-AR-Kompleksowa-organizacja-warsztatow-dla-startupow-2026_2026_2.html",
+    "opis": "Kompleksowa organizacja warsztatow dla startupow 2026 dla Wojewodztwa Podlaskiego. Zamowienie obejmuje organizacje warsztatu, catering i obsluge techniczna.",
+    "tagi": [
+      "warsztaty",
+      "startupy",
+      "Podlaskie"
+    ]
+  },
+  {
+    "id": "PT016",
+    "title": "Slanski Kongres Oswiaty - kompleksowa organizacja i przeprowadzenie",
     "zam": "Regionalny Osrodek Doskonalenia Nauczycieli WOM, Katowice",
     "typ": "CULT",
     "kat": "plat",
@@ -763,51 +1018,11 @@ const DATA = [
     "zrodlo": "BZP",
     "woj": "Slaskie",
     "link": "https://ezamowienia.gov.pl/mp-client/search/list/ocds-148610-4baa6de2-edcc-4184-a187-6452eb51bce6",
-    "opis": "Usluga kompleksowej organizacji i przeprowadzenia wydarzenia pn. Slanski Kongres Oswiaty obejmujaca catering, identyfikacje wizualna, kampanie PR, obsluge medialna, organizacje uroczystosci inauguracyjnej.",
+    "opis": "Usluga kompleksowej organizacji i przeprowadzenia wydarzenia pn. Slanski Kongres Oswiaty obejmujaca catering, identyfikacje wizualna, kampanie PR, obsluge medialna i organizacje uroczystosci inauguracyjnej.",
     "tagi": [
       "kongres",
       "edukacja",
       "Slaskie"
-    ]
-  },
-  {
-    "id": "PT007",
-    "title": "Organizacja i obsluga techniczna konferencji Spring 2022 TIDE Sprint - Ministerstwo Cyfryzacji",
-    "zam": "Ministerstwo Cyfryzacji, Warszawa",
-    "typ": "SSP",
-    "kat": "plat",
-    "status": "eval",
-    "wartosc": "Nie podano",
-    "termin": "2026-03-20",
-    "nr": "2026/BZP-20016498801",
-    "zrodlo": "BZP",
-    "woj": "Mazowieckie",
-    "link": "https://www.przetargi.egospodarka.pl/20016498801_Kompleksowa-organizacja-konferencji_2026_2.html",
-    "opis": "Kompleksowa organizacja konferencji dla Ministerstwa Cyfryzacji. Zamowienie obejmuje organizacje wydarzenia, obsluge techniczna, catering oraz zapewnienie materialow dla uczestnikow.",
-    "tagi": [
-      "konferencja",
-      "IT",
-      "Mazowieckie"
-    ]
-  },
-  {
-    "id": "PT008",
-    "title": "Przygotowanie i obsluga techniczna konferencji - Urzad Marszalkowski woj. Pomorskiego",
-    "zam": "Urzad Marszalkowski Wojewodztwa Pomorskiego, Gdansk",
-    "typ": "MUN",
-    "kat": "plat",
-    "status": "eval",
-    "wartosc": "Nie podano",
-    "termin": "2026-03-20",
-    "nr": "2026/BZP-20016498802",
-    "zrodlo": "BZP",
-    "woj": "Pomorskie",
-    "link": "https://www.przetargi.egospodarka.pl/20016498801_Kompleksowa-organizacja-konferencji_2026_2.html",
-    "opis": "Kompleksowa organizacja konferencji regionalnej Urzedu Marszalkowskiego Wojewodztwa Pomorskiego. Zamowienie obejmuje wynajem sali, catering, obsluge techniczna i logistyczna.",
-    "tagi": [
-      "konferencja",
-      "organizacja",
-      "Pomorskie"
     ]
   }
 ];
@@ -931,7 +1146,7 @@ function render() {
         <span class="badge ${stCls[t.status]}">${stLbl[t.status]}</span>
       </div>
       <div class="match-bar-wrap">
-        <span class="match-label">Dopasowanie</span>
+        <span class="match-label">Dopasowanie <span class="match-info" onclick="showMatchInfo()" title="Jak liczone jest dopasowanie?">ℹ</span></span>
         <div class="match-bar"><div class="match-fill ${dm.level}" style="width:${dm.pct}%"></div></div>
         <span class="match-pct ${dm.level}">${dm.pct}%</span>
       </div>
@@ -958,6 +1173,13 @@ function render() {
       </div>
     </div>`;
   }).join('');
+}
+
+function showMatchInfo() {
+  document.getElementById('matchModal').classList.add('open');
+}
+function closeMatchInfo() {
+  document.getElementById('matchModal').classList.remove('open');
 }
 
 function copyAnalyzePrompt(title, nr, zam, wartosc) {
@@ -1033,6 +1255,13 @@ function doAnalyze(idx) {
 }
 
 var currentList = [];
+
+function showMatchInfo() {
+  document.getElementById('matchModal').classList.add('open');
+}
+function closeMatchInfo() {
+  document.getElementById('matchModal').classList.remove('open');
+}
 
 function copyAnalyzePrompt(title, nr, zam, wartosc) {
   var txt = 'Przeprowadz analize przetargu: "' + title + '" (' + nr + '). Zamawiajacy: ' + zam + '. Wartosc: ' + wartosc;
