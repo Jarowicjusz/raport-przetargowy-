@@ -397,7 +397,17 @@
 
       <div class="sec-hdr" style="margin-bottom:16px;">Gdzie szukać przetargów — przewodnik po źródłach</div>
 
-    <div class="sources-tabs">
+    <div id="archiwum-section" style="margin-bottom:32px;">
+  <div class="sec-hdr" style="margin-bottom:16px;">📚 Archiwum przetargów — poprzednie tygodnie</div>
+  <div id="archiwum-info" style="font-size:12px;color:var(--text2);margin-bottom:12px;">Raport automatycznie zapisuje dane każdego tygodnia w Twojej przeglądarce. Przeglądaj historię przetargów bez potrzeby logowania.</div>
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+    <button class="btn-src" onclick="zapiszDoArchiwum()" style="background:var(--accent-bg);color:var(--accent);border-color:var(--accent)">💾 Zapisz bieżący tydzień do archiwum</button>
+    <button class="btn-src" onclick="wyczyscArchiwum()">🗑 Wyczyść archiwum</button>
+  </div>
+  <div id="archiwum-lista"></div>
+</div>
+
+<div class="sources-tabs">
       <button class="tab-btn active" onclick="switchTab('free')">Źródła bezpłatne</button>
       <button class="tab-btn" onclick="switchTab('paid')">Portale płatne</button>
       <button class="tab-btn" onclick="switchTab('cpv')">Kody CPV dla tej niszy</button>
@@ -1154,7 +1164,7 @@ function render() {
       <div class="tc-meta">
         <span>🏢 <b>${t.zam}</b></span>
         <span>💰 <b>${t.wartosc}</b></span>
-        <span>📅 Termin: <b>${t.termin}</b></span>
+        <span>📅 Termin: <b>${t.termin}</b> ${dniDoTerminu(t.termin)}</span>
         <span>📋 ${t.nr}</span>
         <span>📌 ${t.zrodlo} · ${t.woj}</span>
       </div>
@@ -1208,6 +1218,74 @@ function exportCSV() {
   a.click();
 }
 
+function zapiszDoArchiwum() {
+  try {
+    var arch = JSON.parse(localStorage.getItem('raport_archiwum') || '[]');
+    var tydzienLabel = document.getElementById('wk-lbl') ? document.getElementById('wk-lbl').textContent : 'Tydzień ?';
+    var wpis = {
+      tydzien: tydzienLabel,
+      data: new Date().toLocaleDateString('pl-PL'),
+      przetargi: DATA.map(function(t) {
+        return { id: t.id, title: t.title, zam: t.zam, wartosc: t.wartosc, termin: t.termin, link: t.link, woj: t.woj, status: t.status };
+      })
+    };
+    // Nie dodawaj duplikatów tego samego tygodnia
+    arch = arch.filter(function(a) { return a.tydzien !== wpis.tydzien; });
+    arch.unshift(wpis);
+    if (arch.length > 12) arch = arch.slice(0, 12); // max 12 tygodni
+    localStorage.setItem('raport_archiwum', JSON.stringify(arch));
+    renderArchiwum();
+    alert('Zapisano ' + DATA.length + ' przetargów do archiwum!');
+  } catch(e) {
+    alert('Błąd zapisu: ' + e.message);
+  }
+}
+
+function wyczyscArchiwum() {
+  if (confirm('Usunąć całe archiwum?')) {
+    localStorage.removeItem('raport_archiwum');
+    renderArchiwum();
+  }
+}
+
+function renderArchiwum() {
+  var el = document.getElementById('archiwum-lista');
+  if (!el) return;
+  try {
+    var arch = JSON.parse(localStorage.getItem('raport_archiwum') || '[]');
+    if (!arch.length) {
+      el.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:12px 0;">Archiwum jest puste. Kliknij "Zapisz bieżący tydzień" żeby dodać pierwszy wpis.</div>';
+      return;
+    }
+    el.innerHTML = arch.map(function(a, i) {
+      return '<div style="border:1px solid var(--border);border-radius:8px;margin-bottom:12px;overflow:hidden;">' +
+        '<div style="background:var(--surface2);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;" onclick="toggleArchiwumWpis(' + i + ')">' +
+        '<span style="font-weight:600;font-size:13px;">' + a.tydzien + '</span>' +
+        '<span style="color:var(--text3);font-size:12px;">' + a.przetargi.length + ' przetargów · zapisano ' + a.data + ' ▾</span>' +
+        '</div>' +
+        '<div id="arch-wpis-' + i + '" style="display:none;padding:12px 16px;">' +
+        a.przetargi.map(function(p) {
+          return '<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">' +
+            '<div style="font-weight:600;margin-bottom:2px;">' + p.title + '</div>' +
+            '<div style="color:var(--text2);">' + p.zam + ' · ' + p.woj + ' · ' + (p.wartosc || 'brak wartości') + '</div>' +
+            '<a href="' + p.link + '" target="_blank" style="color:var(--accent);font-size:11px;">→ Przejdź do ogłoszenia</a>' +
+            '</div>';
+        }).join('') +
+        '</div></div>';
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div style="color:var(--red);font-size:12px;">Błąd odczytu archiwum.</div>';
+  }
+}
+
+function toggleArchiwumWpis(i) {
+  var el = document.getElementById('arch-wpis-' + i);
+  if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// Inicjalizuj archiwum przy starcie
+document.addEventListener('DOMContentLoaded', function() { renderArchiwum(); });
+
 function exportTXT() {
   const lines = [
     '╔══════════════════════════════════════════════════════════════════╗',
@@ -1235,6 +1313,17 @@ function exportTXT() {
   a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' }));
   a.download = `raport_przetargi_eventowe_tydzien${wk}_2026.txt`;
   a.click();
+}
+
+function dniDoTerminu(termin) {
+  if (!termin || termin === '-') return '';
+  var d = new Date(termin) - new Date();
+  var dni = Math.ceil(d / 86400000);
+  if (dni < 0) return '<span style="color:var(--text3);font-size:11px">(po terminie)</span>';
+  if (dni === 0) return '<span style="color:var(--red);font-size:11px;font-weight:700">(dziś!)</span>';
+  if (dni <= 3) return '<span style="color:var(--red);font-size:11px;font-weight:700">(' + dni + ' dni!)</span>';
+  if (dni <= 7) return '<span style="color:var(--amber);font-size:11px;font-weight:600">(' + dni + ' dni)</span>';
+  return '<span style="color:var(--text3);font-size:11px">(' + dni + ' dni)</span>';
 }
 
 function showDetails(idx) {
