@@ -271,6 +271,118 @@
     .hkpi { padding: 12px 16px; }
     .hero-tags { display: none; }
   }
+
+  /* WIDOK KANBAN */
+  .kanban-board { display: none; gap: 16px; grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem; }
+  .kanban-board.active { display: grid; }
+  .kanban-col { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .kanban-col-hdr { padding: 12px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+  .kanban-col-hdr.new  { background: var(--green-bg);  color: var(--green); }
+  .kanban-col-hdr.eval { background: var(--amber-bg);  color: var(--amber); }
+  .kanban-col-hdr.old  { background: var(--surface2);  color: var(--text3); }
+  .kanban-cards { padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+  .kanban-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; cursor: pointer; transition: border-color .15s; }
+  .kanban-card:hover { border-color: var(--accent); }
+  .kanban-card-title { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 5px; }
+  .kanban-card-meta { font-size: 11px; color: var(--text3); display: flex; gap: 8px; flex-wrap: wrap; }
+  .kanban-card-score { font-size: 11px; font-weight: 700; }
+  .kanban-card-score.high { color: var(--green); }
+  .kanban-card-score.mid  { color: var(--amber); }
+  .kanban-card-score.low  { color: var(--red); }
+
+  /* PRZEŁĄCZNIK WIDOKU */
+  .view-toggle { display: flex; gap: 4px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px; }
+  .view-btn { padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--text2); font-family: inherit; transition: background .12s, color .12s; }
+  .view-btn.active { background: var(--surface); color: var(--text); }
+
+  /* NOTATKI */
+  .nota-btn { font-size: 11px; padding: 4px 10px; background: var(--surface2); color: var(--text3); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; transition: background .12s; }
+  .nota-btn:hover { background: var(--border); color: var(--text2); }
+  .nota-btn.has-nota { color: var(--amber); border-color: var(--amber); background: var(--amber-bg); }
+  .nota-area { margin-top: 10px; display: none; }
+  .nota-area.open { display: block; }
+  .nota-textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--text); font-family: inherit; font-size: 12px; padding: 8px 10px; resize: vertical; min-height: 70px; line-height: 1.5; }
+  .nota-textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  .nota-save { margin-top: 6px; font-size: 12px; padding: 5px 14px; background: var(--accent-dark); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; font-weight: 600; }
+
+  /* PORÓWNANIE */
+  .cmp-btn { font-size: 11px; padding: 4px 10px; background: transparent; color: var(--text3); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; transition: all .12s; }
+  .cmp-btn.selected { background: var(--purple-bg); color: var(--purple); border-color: var(--purple); }
+  .cmp-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 2px solid var(--accent); padding: 12px 24px; z-index: 100; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cmp-bar.active { display: flex; }
+  .cmp-bar-items { display: flex; gap: 8px; flex: 1; flex-wrap: wrap; }
+  .cmp-chip { font-size: 12px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 4px 12px; color: var(--text2); display: flex; align-items: center; gap: 6px; }
+  .cmp-chip button { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
+  .btn-cmp-go { background: var(--accent-dark); color: #fff; border: none; padding: 8px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  .btn-cmp-clear { background: transparent; color: var(--text3); border: 1px solid var(--border); padding: 8px 14px; border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; font-family: inherit; }
+
+  /* MODAL PORÓWNANIE */
+  .cmp-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+  .cmp-modal.open { display: flex; }
+  .cmp-modal-box { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; padding: 24px; max-width: 900px; width: 100%; }
+  .cmp-modal-box h3 { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
+  .cmp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .cmp-table th { background: var(--surface2); padding: 10px 12px; text-align: left; font-weight: 700; color: var(--text2); border-bottom: 2px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  .cmp-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text2); line-height: 1.5; }
+  .cmp-table td:first-child { color: var(--text3); font-weight: 600; white-space: nowrap; width: 130px; }
+  .cmp-table tr:hover td { background: var(--surface2); }
+  .cmp-modal-close { margin-top: 16px; background: var(--surface2); color: var(--text2); border: 1px solid var(--border); padding: 8px 20px; border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; }
+
+  /* CHECKLIST */
+  .checklist-btn { font-size: 11px; padding: 4px 10px; background: transparent; color: var(--text3); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-family: inherit; transition: all .12s; }
+  .checklist-btn.done { color: var(--green); border-color: var(--green); background: var(--green-bg); }
+  .checklist-area { margin-top: 10px; display: none; background: var(--surface2); border-radius: var(--radius-sm); padding: 12px; }
+  .checklist-area.open { display: block; }
+  .checklist-item { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 12px; color: var(--text2); cursor: pointer; }
+  .checklist-item input[type=checkbox] { width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  .checklist-item.checked { color: var(--text3); text-decoration: line-through; }
+  .checklist-progress { font-size: 11px; color: var(--text3); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+  /* DNI ROBOCZE */
+  .dni-rob { font-size: 11px; color: var(--text3); margin-left: 4px; }
+  .dni-rob.urgent { color: var(--red); font-weight: 700; }
+  .dni-rob.warn { color: var(--amber); font-weight: 600; }
+
+  @media (max-width: 768px) {
+    .kanban-board { grid-template-columns: 1fr; }
+    .cmp-bar { bottom: 0; padding: 10px 16px; }
+  }
+
+
+  /* ANALITYKA */
+  .analytics-section { margin: 2rem 0; }
+  .analytics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .analytics-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .analytics-card.full { grid-column: 1 / -1; }
+  .analytics-title { font-size: 12px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .analytics-title span { color: var(--accent); font-size: 14px; }
+
+  /* WYKRES SŁUPKOWY */
+  .bar-chart { display: flex; flex-direction: column; gap: 8px; }
+  .bar-row { display: flex; align-items: center; gap: 10px; }
+  .bar-lbl { font-size: 11px; color: var(--text2); min-width: 110px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; height: 18px; background: var(--surface2); border-radius: 3px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width .5s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+  .bar-fill.new  { background: linear-gradient(90deg, #166534, #4ade80); }
+  .bar-fill.eval { background: linear-gradient(90deg, #78350f, #fbbf24); }
+  .bar-fill.old  { background: linear-gradient(90deg, #1e293b, #475569); }
+  .bar-fill.mun  { background: linear-gradient(90deg, #1e3a8a, #60a5fa); }
+  .bar-fill.ssp  { background: linear-gradient(90deg, #14532d, #4ade80); }
+  .bar-fill.cult { background: linear-gradient(90deg, #4a1d96, #a78bfa); }
+  .bar-fill.woj  { background: linear-gradient(90deg, #0e4f6e, #38bdf8); }
+  .bar-val { font-size: 11px; font-weight: 700; color: #fff; min-width: 18px; text-align: right; white-space: nowrap; line-height: 18px; }
+  .bar-val-out { font-size: 11px; color: var(--text2); min-width: 24px; }
+
+  /* CHART TABS */
+  .chart-tabs { display: flex; gap: 4px; margin-bottom: 14px; }
+  .chart-tab { padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text3); font-family: inherit; transition: all .12s; }
+  .chart-tab.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 680px) {
+    .analytics-grid { grid-template-columns: 1fr; }
+    .analytics-card.full { grid-column: auto; }
+  }
+
 </style>
 </head>
 <body>
@@ -310,6 +422,16 @@
     </div>
   </div>
 
+<div style="background:var(--surface);border-bottom:1px solid var(--border);padding:12px 0;">
+  <div class="page" style="padding-top:0;padding-bottom:0;">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <span style="font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap;">🔍 Szukaj w BZP:</span>
+      <input id="bzp-input" type="text" placeholder="np. 2026/BZP 00196108" style="flex:1;min-width:180px;padding:7px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;" onkeydown="if(event.key==='Enter')szukajBZP()">
+      <button onclick="szukajBZP()" style="padding:7px 16px;border-radius:6px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;">Otwórz w e-Zamówieniach →</button>
+    </div>
+  </div>
+</div>
+
 <div class="page" style="padding-top:2rem;">
 
   <!-- old top-bar hidden -->
@@ -336,6 +458,7 @@
       <option value="app">Aplikacja mobilna / ticketing</option>
       <option value="acc">System akredytacji</option>
       <option value="plat">Platforma zarządzania eventami</option>
+      <option value="catering">Catering / obsługa gastronomiczna</option>
     </select>
     <select id="f-st" onchange="render()">
       <option value="">Wszystkie statusy</option>
@@ -343,6 +466,10 @@
       <option value="eval">W trakcie oceny</option>
       <option value="closed">Rozstrzygnięte</option>
     </select>
+    <div class="view-toggle">
+      <button class="view-btn active" id="btn-lista" onclick="setView('lista')">☰ Lista</button>
+      <button class="view-btn" id="btn-kanban" onclick="setView('kanban')">⬜ Kanban</button>
+    </div>
     <div class="week-grp">
       <button class="btn btn-week" onclick="chWeek(-1)">&#8592;</button>
       <span id="wk-lbl">Tydzień 16 / 2026</span>
@@ -360,9 +487,66 @@
 
   <!-- TENDER LIST -->
   <div class="sec-hdr" id="sec-lbl">9 przetargów · tydzień 15 / 2026 · 7–15 kwietnia 2026</div>
+  <div class="kanban-board" id="kanban-board">
+    <div class="kanban-col">
+      <div class="kanban-col-hdr new"><span>🟢 Nowe ogłoszenia</span><span id="k-new-cnt">0</span></div>
+      <div class="kanban-cards" id="k-new"></div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-hdr eval"><span>🟡 W ocenie ofert</span><span id="k-eval-cnt">0</span></div>
+      <div class="kanban-cards" id="k-eval"></div>
+    </div>
+    <div class="kanban-col">
+      <div class="kanban-col-hdr old"><span>⚫ Po terminie</span><span id="k-old-cnt">0</span></div>
+      <div class="kanban-cards" id="k-old"></div>
+    </div>
+  </div>
   <div class="tender-list" id="list"></div>
 
+  <!-- PASEK PORÓWNANIA -->
+  <div class="cmp-bar" id="cmp-bar">
+    <div style="font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;">⚖️ Porównaj:</div>
+    <div class="cmp-bar-items" id="cmp-chips"></div>
+    <button class="btn-cmp-go" onclick="openCmpModal()">Porównaj →</button>
+    <button class="btn-cmp-clear" onclick="clearCmp()">✕ Wyczyść</button>
+  </div>
+
+  <!-- MODAL PORÓWNANIE -->
+  <div class="cmp-modal" id="cmpModal" onclick="if(event.target===this)closeCmpModal()">
+    <div class="cmp-modal-box">
+      <h3>⚖️ Porównanie przetargów</h3>
+      <div id="cmp-table-wrap"></div>
+      <button class="cmp-modal-close" onclick="closeCmpModal()">Zamknij</button>
+    </div>
+  </div>
+
   <div class="divider"></div>
+
+
+  <!-- ANALYTICS SECTION -->
+  <div class="analytics-section" id="analytics">
+    <div class="sec-hdr" style="margin-bottom:16px;">📊 Analityka przetargów</div>
+    <div class="analytics-grid">
+
+      <!-- WYKRES: zakładki -->
+      <div class="analytics-card">
+        <div class="analytics-title"><span>📈</span> Rozkład przetargów</div>
+        <div class="chart-tabs">
+          <button class="chart-tab active" onclick="switchChart('status', this)">Status</button>
+          <button class="chart-tab" onclick="switchChart('typ', this)">Typ podmiotu</button>
+          <button class="chart-tab" onclick="switchChart('kat', this)">Kategoria</button>
+        </div>
+        <div class="bar-chart" id="chart-main"></div>
+      </div>
+
+      <!-- WYKRES: województwa -->
+      <div class="analytics-card">
+        <div class="analytics-title"><span>🗺️</span> Przetargi wg województwa</div>
+        <div class="bar-chart" id="chart-woj"></div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- EXPORT -->
   <div class="export-section">
@@ -391,8 +575,16 @@
           <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">iOS / Android / mobilny</span><span style="color:var(--amber);font-weight:700">+8 pkt</span></div>
           <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">RFID / QR / kontrola dostępu</span><span style="color:var(--amber);font-weight:700">+8 pkt</span></div>
           <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">System IT / oprogramowanie</span><span style="color:var(--text3);font-weight:700">+5 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Catering / obsługa gastronomiczna</span><span style="color:var(--amber);font-weight:700">+8 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Impreza masowa / plenerowa / piknik</span><span style="color:var(--green);font-weight:700">+18 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Event korporacyjny / gala / team building</span><span style="color:var(--green);font-weight:700">+16 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Organizacja konferencji / kongresu</span><span style="color:var(--green);font-weight:700">+18 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Event sportowy / zawody / turniej</span><span style="color:var(--amber);font-weight:700">+14 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Wystawa / targi / ekspozycja</span><span style="color:var(--amber);font-weight:700">+14 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Obsługa techniczna (nagłośnienie, scena)</span><span style="color:var(--amber);font-weight:700">+14 pkt</span></div>
+          <div style="background:var(--surface2);border-radius:6px;padding:8px 12px;display:flex;justify-content:space-between;"><span style="color:var(--text2)">Koncert / spektakl / show</span><span style="color:var(--amber);font-weight:700">+12 pkt</span></div>
         </div>
-        <p style="font-size:11px;color:var(--text3);">Premia za typ podmiotu: Spółki Skarbu Państwa +10 pkt · Instytucje kultury/sportu +8 pkt · Spółki miejskie +4 pkt &nbsp;|&nbsp; Suma punktów ÷ 1.3 = wynik końcowy (max 100%)</p>
+        <p style="font-size:11px;color:var(--text3);">Premia za typ podmiotu: Spółki SP +10 pkt · Instytucje kultury/sportu +10 pkt · Spółki miejskie +6 pkt &nbsp;|&nbsp; Suma punktów ÷ 1.3 = wynik końcowy (max 100%)</p>
       </div>
 
       <div class="sec-hdr" style="margin-bottom:16px;">Gdzie szukać przetargów — przewodnik po źródłach</div>
@@ -408,10 +600,17 @@
 </div>
 
 <div class="sources-tabs">
-      <button class="tab-btn active" onclick="switchTab('free')">Źródła bezpłatne</button>
-      <button class="tab-btn" onclick="switchTab('paid')">Portale płatne</button>
-      <button class="tab-btn" onclick="switchTab('cpv')">Kody CPV dla tej niszy</button>
-      <button class="tab-btn" onclick="switchTab('tips')">Strategia monitoringu</button>
+      <button class="tab-btn active" onclick="switchTab('free', this)">Źródła bezpłatne</button>
+      <button class="tab-btn" onclick="switchTab('paid', this)">Portale płatne</button>
+      <button class="tab-btn" onclick="switchTab('cpv', this)">Kody CPV dla tej niszy</button>
+      <button class="tab-btn" onclick="switchTab('bzpsearch', this)">🔍 Szukaj po nr BZP</button>
+      <button class="tab-btn" onclick="switchTab('tips', this)">Strategia monitoringu</button>
+      <button class="tab-btn" id="btn-korp" onclick="
+  var s=document.getElementById('sekcja-korp');
+  var open=s.style.display==='block';
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  if(open){s.style.display='none';}else{s.style.display='block';this.classList.add('active');}
+">🏭 Platformy korporacyjne</button>
     </div>
 
     <div class="sources-body">
@@ -503,7 +702,12 @@
           </div>
 
         </div>
-      </div>
+      
+
+
+
+
+</div>
 
       <!-- TAB: PAID -->
       <div class="tab-pane" id="tab-paid">
@@ -678,14 +882,168 @@
             </div>
           </div>
         </div>
-        <div class="reco-box">
-          <h4>⭐ Rekomendowana kombinacja dla Twojej niszy</h4>
-          <p>Bezpłatnie: <strong>Atlas Przetargów</strong> (alerty natychmiastowe) + <strong>TED</strong> (RSS/e-mail na duże SSP) + ręczny przegląd 5–8 kluczowych BIP-ów co tydzień. Jeśli chcesz wychwytywać też zapytania ofertowe poniżej progu BZP — warto zainwestować w <strong>i-przetargi</strong> lub <strong>Pressinfo</strong> (~50–60 zł/mies.).</p>
+      <!-- TAB: BZPSEARCH -->
+      <div class="tab-pane" id="tab-bzpsearch">
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:600;font-size:13px;margin-bottom:6px;">Wyszukaj ogłoszenie po numerze BZP na ezamowienia.gov.pl</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:10px;">Wpisz numer w formacie <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">2026/BZP 00196108</code></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <input id="bzp-input" type="text" placeholder="np. 2026/BZP 00196108" style="flex:1;min-width:200px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;" onkeydown="if(event.key==='Enter')szukajBZP()">
+            <button onclick="szukajBZP()" style="padding:8px 18px;border-radius:6px;border:1px solid var(--accent);background:var(--accent-bg);color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Szukaj →</button>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:12px;">
+          <div style="font-size:12px;color:var(--text2);margin-bottom:8px;font-weight:600;">Numery z bieżącego raportu — kliknij żeby otworzyć:</div>
+          <div id="bzp-lista-raportu" style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;"></div>
         </div>
       </div>
-
     </div>
+  
+<!-- SEKCJA KORPORACYJNA -->
+<div id="sekcja-korp" style="display:none;margin-top:16px;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:0 var(--radius) var(--radius) var(--radius);padding:20px 24px;">
+
+        <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6;">Spółki Skarbu Państwa i duże korporacje prowadzą własne platformy zakupowe — często niezależnie od BZP. Przetargi na eventy, konferencje i catering pojawiają się tam wcześniej lub wyłącznie tam.</p>
+        <div class="sources-grid">
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon reco">⛽</div>
+              <div class="src-name">CONNECT — Platforma Grupy ORLEN</div>
+              <span class="src-badge reco">SSP</span>
+            </div>
+            <div class="src-desc">Jedna platforma dla całej Grupy ORLEN (PKN Orlen, PSG, Orlen Południe, LOTOS i in.). Przetargi na organizację konferencji, eventów pracowniczych, cateringi. Wymagana rejestracja jako dostawca.</div>
+            <ul class="src-features">
+              <li>Obejmuje wszystkie spółki Grupy ORLEN</li>
+              <li>Przetargi na eventy, konferencje, catering</li>
+              <li>Rejestracja dostawcy wymagana</li>
+              <li class="warn">Składanie ofert wymaga rejestracji jako dostawca</li>
+            </ul>
+            <a class="src-link" href="https://connect.orlen.pl" target="_blank">Otwórz connect.orlen.pl ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">⚡</div>
+              <div class="src-name">System Zakupowy GK PGE</div>
+              <span class="src-badge free">SSP</span>
+            </div>
+            <div class="src-desc">Platforma zakupowa Polskiej Grupy Energetycznej — PGE, PGE GiEK, PGE Dystrybucja i spółki zależne. Przetargi na eventy korporacyjne, szkolenia, konferencje.</div>
+            <ul class="src-features">
+              <li>Postępowania publiczne + niepubliczne</li>
+              <li>Plan postępowań 2026 dostępny jako PDF</li>
+              <li>Lista postępowań publiczna bez logowania</li>
+              <li class="warn">Składanie ofert wymaga rejestracji w systemie</li>
+            </ul>
+            <a class="src-link" href="https://przetargi.gkpge.pl" target="_blank">Otwórz przetargi.gkpge.pl ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">🚂</div>
+              <div class="src-name">eB2B — Platforma PKP</div>
+              <span class="src-badge free">SSP</span>
+            </div>
+            <div class="src-desc">Platforma zakupowa Grupy PKP (PKP S.A., PKP Cargo, PKP Intercity). Zamówienia na organizację eventów pracowniczych, konferencji, szkoleń z cateringiem. Ta sama platforma obsługuje też BGK.</div>
+            <ul class="src-features">
+              <li>Obejmuje PKP S.A., PKP Cargo, PKP Intercity</li>
+              <li>Lista postępowań otwartych publicznie</li>
+              <li>Eventy pracownicze, konferencje, szkolenia</li>
+              <li class="warn">Składanie ofert wymaga rejestracji</li>
+            </ul>
+            <a class="src-link" href="https://pkp.eb2b.com.pl/open-auctions.html" target="_blank">Otwórz pkp.eb2b.com.pl ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">🏦</div>
+              <div class="src-name">eB2B — Bank Gospodarstwa Krajowego</div>
+              <span class="src-badge free">SSP</span>
+            </div>
+            <div class="src-desc">BGK regularnie ogłasza przetargi na obsługę wydarzeń zewnętrznych, konferencje branżowe (np. Forum Zrównoważonego Finansowania) i eventy dla partnerów. Duże budżety eventowe.</div>
+            <ul class="src-features">
+              <li>Konferencje branżowe wysokiego szczebla</li>
+              <li>Eventy dla partnerów i klientów instytucjonalnych</li>
+              <li>Ogłoszenia publiczne na bgk.pl/bip</li>
+            </ul>
+            <a class="src-link" href="https://bgk.eb2b.com.pl" target="_blank">Otwórz bgk.eb2b.com.pl ↗</a>
+            <div style="margin-top:6px;"><a class="src-link" href="https://www.bgk.pl/bip/zamowienia-publiczne-37/" target="_blank">BIP BGK ↗</a></div>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">⛏️</div>
+              <div class="src-name">KGHM — Portal Dostawcy</div>
+              <span class="src-badge free">SSP</span>
+            </div>
+            <div class="src-desc">KGHM Polska Miedź ogłasza przetargi na eventy korporacyjne dla tysięcy pracowników — dni otwarte, imprezy integracyjne, jubileusze zakładów. Duże wolumeny, wielomiejscowe.</div>
+            <ul class="src-features">
+              <li>Imprezy masowe dla pracowników (kilka tys. osób)</li>
+              <li>Dni otwarte kopalń i hut</li>
+              <li>Ogłoszenia na kghm.com/pl/dostawcy</li>
+              <li class="warn">Składanie ofert przez SAP Ariba — rejestracja wymagana</li>
+            </ul>
+            <a class="src-link" href="https://kghm.com/pl/dla-dostawcow/ogloszenia" target="_blank">Otwórz kghm.com ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon paid">🏟️</div>
+              <div class="src-name">PGE Narodowy — BIP</div>
+              <span class="src-badge reco">Kluczowy</span>
+            </div>
+            <div class="src-desc">Największy obiekt eventowy w Polsce. Przetargi na obsługę techniczną, catering, AV i organizację wydarzeń pojawiają się bezpośrednio na stronie. Nieobowiązkowe publikowanie w BZP dla części zamówień.</div>
+            <ul class="src-features">
+              <li>Eventy masowe na 58 tys. widzów</li>
+              <li>Przetargi na BIP pgenarodowy.pl</li>
+              <li>Catering, AV, obsługa techniczna imprez</li>
+              <li class="warn">Nie wszystkie trafiają do BZP — tylko BIP</li>
+            </ul>
+            <a class="src-link" href="https://www.pgenarodowy.pl/zamowienia-publiczne" target="_blank">Otwórz pgenarodowy.pl ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">🏦</div>
+              <div class="src-name">Platformazakupowa.pl</div>
+              <span class="src-badge free">Agregator</span>
+            </div>
+            <div class="src-desc">Jedna z największych platform B2B w Polsce — obsługuje setki podmiotów publicznych i prywatnych. Można filtrować po zamawiającym i kategorii. Wiele spółek miejskich i SSP używa jej jako głównego kanału zakupowego.</div>
+            <ul class="src-features">
+              <li>Setki zamawiających publicznych i prywatnych</li>
+              <li>Wyszukiwarka po słowach kluczowych</li>
+              <li>Bezpłatne przeglądanie ogłoszeń</li>
+              <li>Alerty e-mail po rejestracji</li>
+            </ul>
+            <a class="src-link" href="https://platformazakupowa.pl" target="_blank">Otwórz platformazakupowa.pl ↗</a>
+          </div>
+
+          <div class="src-card">
+            <div class="src-card-head">
+              <div class="src-icon free">🏢</div>
+              <div class="src-name">logintrade.net</div>
+              <span class="src-badge free">Agregator</span>
+            </div>
+            <div class="src-desc">Platforma zakupowa używana przez wiele spółek miejskich, instytucji kultury i teatrów (m.in. Teatr Śląski). Postępowania widoczne publicznie przed zalogowaniem.</div>
+            <ul class="src-features">
+              <li>Teatry, instytucje kultury, MCK-i</li>
+              <li>Spółki komunalne i miejskie</li>
+              <li>Lista aktywnych postępowań publicznie dostępna</li>
+            </ul>
+            <a class="src-link" href="https://teatrslaski.logintrade.net" target="_blank">Przykład: Teatr Śląski ↗</a>
+            <div style="margin-top:6px;"><a class="src-link" href="https://logintrade.net" target="_blank">logintrade.net ↗</a></div>
+          </div>
+
+        </div>
+
+        <div class="reco-box" style="margin-top:20px;">
+          <h4>💡 Jak działać z platformami korporacyjnymi</h4>
+          <p>Zarejestruj się jako dostawca na <strong>CONNECT (Orlen)</strong>, <strong>eB2B (PKP, BGK)</strong> i <strong>platformazakupowa.pl</strong> — to pokryje większość dużych SSP. Dla instytucji kultury sprawdź <strong>logintrade.net</strong>. PGE Narodowy i KGHM obserwuj bezpośrednio przez BIP. Rejestracja jest bezpłatna — bez niej część postępowań jest niewidoczna.</p>
+        </div>
+      
   </div>
+</div>
+</div>
 
 </div>
 
@@ -707,6 +1065,7 @@
       <tr><td>iOS / Android / mobilny</td><td>+8 pkt</td></tr>
       <tr><td>RFID / QR / kontrola dostępu</td><td>+8 pkt</td></tr>
       <tr><td>System IT / oprogramowanie</td><td>+5 pkt</td></tr>
+      <tr><td>Catering / obsługa gastronomiczna</td><td>+8 pkt</td></tr>
     </table>
     <p style="font-size:11px;color:var(--text3);margin-top:10px;">Premia za typ podmiotu: Spółki SP +10 pkt, Instytucje kultury +8 pkt, Spółki miejskie +4 pkt. Suma punktów ÷ 1.3 = wynik końcowy (max 100%).</p>
     <button class="match-modal-close" onclick="closeMatchInfo()">Zamknij</button>
@@ -724,15 +1083,15 @@ const DATA = [
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-21",
-    "nr": "BZP-20019610801",
+    "nr": "2026/BZP 00196108",
     "zrodlo": "BZP",
     "woj": "Mazowieckie",
     "link": "https://www.przetargi.egospodarka.pl/20019610801_Kompleksowa-organizacja-Warszawskiej-Strefy-Miejskiej-podczas-wskazanych-przez-Zamawiajacego-festiwali_2026_2.html",
-    "opis": "Kompleksowa organizacja Warszawskiej Strefy Miejskiej podczas wskazanych przez Zamawiajacego festiwali. Zamowienie obejmuje kompleksowa organizacje i obsluge strefy miejskiej podczas wydarzen kulturalnych w Warszawie.",
+    "opis": "Kompleksowa organizacja Warszawskiej Strefy Miejskiej podczas wskazanych przez Zamawiajacego festiwali w Warszawie.",
     "tagi": [
       "festiwal",
-      "Warszawa",
-      "impreza plenerowa"
+      "impreza plenerowa",
+      "Warszawa"
     ]
   },
   {
@@ -744,11 +1103,11 @@ const DATA = [
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-23",
-    "nr": "BZP-20019362401",
+    "nr": "2026/BZP 00193624",
     "zrodlo": "BZP",
     "woj": "Lodzkie",
     "link": "https://www.przetargi.egospodarka.pl/20019362401_Organizacja-Sieradz-Open-Hair-Festival-2026-z-prawem-opcji_2026_2.html",
-    "opis": "Organizacja Sieradz Open Hair Festival 2026 z prawem opcji. Zamowienie obejmuje kompleksowa organizacje festiwalu muzycznego w Sieradzu.",
+    "opis": "Organizacja Sieradz Open Hair Festival 2026 z prawem opcji. Kompleksowa organizacja festiwalu muzycznego.",
     "tagi": [
       "festiwal",
       "muzyka",
@@ -764,11 +1123,11 @@ const DATA = [
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-24",
-    "nr": "BZP-20018949901",
+    "nr": "2026/BZP 00189499",
     "zrodlo": "BZP",
     "woj": "Mazowieckie",
     "link": "https://www.przetargi.egospodarka.pl/20018949901_Kompleksowe-przygotowanie-i-realizacje-Warszawskiej-Strefy-Festiwalowej-na-wydarzeniu-Open-er-w-Gdyni-odbywajacym-sie-w-dniach-1-4-lipca-2026-roku-na-terenie-Lotniska-Gdynia-Kosakowo_2026_2.html",
-    "opis": "Kompleksowe przygotowanie i realizacja Warszawskiej Strefy Festiwalowej na wydarzeniu Open'er w Gdyni, 1-4 lipca 2026 roku na terenie Lotniska Gdynia-Kosakowo.",
+    "opis": "Kompleksowe przygotowanie i realizacja Warszawskiej Strefy Festiwalowej na wydarzeniu Open'er w Gdyni, 1-4 lipca 2026 roku na Lotnisku Gdynia-Kosakowo.",
     "tagi": [
       "festiwal",
       "Open'er",
@@ -777,22 +1136,22 @@ const DATA = [
   },
   {
     "id": "PT004",
-    "title": "Organizacja wydarzen na terenie Pawilonu Edukacyjnego Kamien oraz realizacja dzialan towarzyszacych - Warszawa",
+    "title": "Organizacja wydarzen na terenie Pawilonu Edukacyjnego Kamien oraz realizacja dzialan towarzyszacych",
     "zam": "Miasto Stoleczne Warszawa",
     "typ": "MUN",
     "kat": "plat",
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-20",
-    "nr": "BZP-20018853701",
+    "nr": "2026/BZP 00188537",
     "zrodlo": "BZP",
     "woj": "Mazowieckie",
     "link": "https://www.przetargi.egospodarka.pl/20018853701_Organizacja-wydarzen-na-terenie-Pawilonu-Edukacyjnego-Kamien-oraz-realizacja-dzialan-podczas-wydarzen-towarzyszacych_2026_2.html",
-    "opis": "Organizacja wydarzen na terenie Pawilonu Edukacyjnego Kamien oraz realizacja dzialan podczas wydarzen towarzyszacych w Warszawie.",
+    "opis": "Organizacja wydarzen na terenie Pawilonu Edukacyjnego Kamien oraz realizacja dzialan podczas wydarzen towarzyszacych.",
     "tagi": [
       "event",
       "edukacja",
-      "Mazowieckie"
+      "Warszawa"
     ]
   },
   {
@@ -804,11 +1163,11 @@ const DATA = [
     "status": "new",
     "wartosc": "Nie podano",
     "termin": "2026-04-14",
-    "nr": "BZP-20018590401",
+    "nr": "2026/BZP 00185904",
     "zrodlo": "BZP",
     "woj": "Lubelskie",
     "link": "https://www.przetargi.egospodarka.pl/20018590401_Kompleksowa-obsluga-techniczna-wydarzenia-Lubelskie-Dni-Kultury-Studenckiej-LUBLINALIA-2026_2026_2.html",
-    "opis": "Kompleksowa obsluga techniczna wydarzenia Lubelskie Dni Kultury Studenckiej LUBLINALIA 2026. Zamowienie obejmuje naglośnienie, oswietlenie, scene i obsluge techniczna festiwalu studenckiego.",
+    "opis": "Kompleksowa obsluga techniczna wydarzenia Lubelskie Dni Kultury Studenckiej LUBLINALIA 2026. Naglosnienie, oswietlenie, scena.",
     "tagi": [
       "festiwal",
       "obsluga techniczna",
@@ -817,11 +1176,11 @@ const DATA = [
   },
   {
     "id": "PT006",
-    "title": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej - 3 czesci",
+    "title": "Kompleksowa organizacja trzech konferencji z obszaru ekonomii spolecznej - 3 czesci - Lublin",
     "zam": "Regionalny Osrodek Polityki Spolecznej w Lublinie",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-10",
     "nr": "2026/BZP 00182079",
@@ -837,22 +1196,22 @@ const DATA = [
   },
   {
     "id": "PT007",
-    "title": "Kompleksowa organizacja dwoch konferencji - projekt Efektywna polityka spoleczna woj. lubelskie",
-    "zam": "Regionalny Osrodek Polityki Spolecznej w Lublinie",
+    "title": "Kompleksowa organizacja i obsluga warsztatow 2026 - Pomoc Techniczna Fundusze Europejskie",
+    "zam": "Urzad Statystyczny w Zielonej Gorze",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
-    "termin": "2026-04-09",
-    "nr": "BZP-20018171801",
+    "termin": "2026-04-10",
+    "nr": "2026/BZP 00180688",
     "zrodlo": "BZP",
-    "woj": "Lubelskie",
-    "link": "https://www.przetargi.egospodarka.pl/20018171801_Kompleksowa-organizacja-dwoch-konferencji-z-podzialem-na-2-czesci-Usluga-realizowana-jest-w-ramach-projektu-pozakonkursowego-pt-Efektywna-polityka-spoleczna-w-wojewodztwie-lubelskim_2026_2.html",
-    "opis": "Kompleksowa organizacja dwoch konferencji w ramach projektu Efektywna polityka spoleczna w wojewodztwie lubelskim.",
+    "woj": "Lubuskie",
+    "link": "https://www.przetargi.egospodarka.pl/20018068801_Kompleksowa-organizacja-i-obsluga-warsztatow-w-2026-roku-w-ramach-realizacji-projektu-wspolfinansowanego-ze-srodkow-programu-Pomoc-Techniczna-dla-Funduszy-Europejskich-2021-2027_2026_2.html",
+    "opis": "Kompleksowa organizacja i obsluga warsztatow w 2026 roku w ramach Pomocy Technicznej dla Funduszy Europejskich 2021-2027.",
     "tagi": [
-      "konferencja",
+      "warsztaty",
       "organizacja",
-      "Lubelskie"
+      "Lubuskie"
     ]
   },
   {
@@ -861,14 +1220,14 @@ const DATA = [
     "zam": "Miasto Chorzow",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "BZP-20017921301",
+    "nr": "2026/BZP 00179213",
     "zrodlo": "BZP",
     "woj": "Slaskie",
     "link": "https://www.przetargi.egospodarka.pl/20017921301_Organizacja-niebiletowanej-plenerowej-imprezy-masowej-o-charakterze-kulturalno-rozrywkowym-w-ramach-Swieta-Miasta-Chorzow-2026_2026_2.html",
-    "opis": "Organizacja niebiletowanej plenerowej imprezy masowej o charakterze kulturalno-rozrywkowym w ramach Swieta Miasta Chorzow 2026.",
+    "opis": "Organizacja niebiletowanej plenerowej imprezy masowej kulturalno-rozrywkowej w ramach Swieta Miasta Chorzow 2026.",
     "tagi": [
       "impreza masowa",
       "plenerowa",
@@ -877,18 +1236,18 @@ const DATA = [
   },
   {
     "id": "PT009",
-    "title": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki - Chorzow",
+    "title": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki Chorzow",
     "zam": "Planetarium i Obserwatorium Astronomiczne im. M. Kopernika, Chorzow",
     "typ": "CULT",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-10",
-    "nr": "BZP-20017776201",
+    "nr": "2026/BZP 00177762",
     "zrodlo": "BZP",
     "woj": "Slaskie",
     "link": "https://www.przetargi.egospodarka.pl/20017776201_Kompleksowa-organizacja-festiwalu-COSMICON-w-Planetarium-Slaskim-Parku-Nauki_2026_2.html",
-    "opis": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki w Chorzowie. Zamowienie obejmuje kompleksowa obsluge organizacyjna i techniczna festiwalu naukowego.",
+    "opis": "Kompleksowa organizacja festiwalu COSMICON w Planetarium Slaskim Parku Nauki w Chorzowie.",
     "tagi": [
       "festiwal",
       "nauka",
@@ -897,18 +1256,18 @@ const DATA = [
   },
   {
     "id": "PT010",
-    "title": "Organizacja kolejnej edycji Swieta Wielkopolski - impreza plenerowa Piknik na Fest - Poznan",
-    "zam": "Urzad Marszalkowski Wojewodztwa Wielkopolskiego w Poznaniu",
+    "title": "Organizacja kolejnej edycji Swieta Wielkopolski - Piknik na Fest - Poznan",
+    "zam": "Urzad Marszalkowski Wojewodztwa Wielkopolskiego, Poznan",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-10",
-    "nr": "BZP-20017743201",
+    "nr": "2026/BZP 00177432",
     "zrodlo": "BZP",
     "woj": "Wielkopolskie",
     "link": "https://www.przetargi.egospodarka.pl/20017743201_Organizacja-kolejnej-edycji-Swieta-Wielkopolski-imprezy-plenerowej-pod-nazwa-Piknik-na-Fest_2026_2.html",
-    "opis": "Organizacja kolejnej edycji Swieta Wielkopolski - imprezy plenerowej pod nazwa Piknik na Fest. Duza impreza masowa o zasiegu regionalnym.",
+    "opis": "Organizacja kolejnej edycji Swieta Wielkopolski - imprezy plenerowej pod nazwa Piknik na Fest.",
     "tagi": [
       "impreza plenerowa",
       "piknik",
@@ -917,18 +1276,18 @@ const DATA = [
   },
   {
     "id": "PT011",
-    "title": "Swieto Wisly 2026 - organizacja imprezy plenerowej - Miasto Stoleczne Warszawa",
+    "title": "Swieto Wisly 2026 - organizacja imprezy plenerowej - Warszawa",
     "zam": "Miasto Stoleczne Warszawa",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "BZP-20017577601",
+    "nr": "2026/BZP 00175776",
     "zrodlo": "BZP",
     "woj": "Mazowieckie",
     "link": "https://www.przetargi.egospodarka.pl/20017577601_Swieto-Wisly-2026_2026_2.html",
-    "opis": "Organizacja Swieta Wisly 2026 - duzej imprezy plenerowej w Warszawie. Zamowienie obejmuje kompleksowa organizacje i obsluge imprezy nad Wisla.",
+    "opis": "Organizacja Swieta Wisly 2026 - duzej imprezy plenerowej w Warszawie.",
     "tagi": [
       "impreza plenerowa",
       "Warszawa",
@@ -941,14 +1300,14 @@ const DATA = [
     "zam": "Siec Badawcza Lukasiewicz - Instytut Lotnictwa, Warszawa",
     "typ": "SSP",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "BZP-20017572701",
+    "nr": "2026/BZP 00175727",
     "zrodlo": "BZP",
     "woj": "Mazowieckie",
     "link": "https://www.przetargi.egospodarka.pl/20017572701_DZP-26-10-2026-usluga-organizacji-pikniku-rekreacyjno-edukacyjnego_2026_2.html",
-    "opis": "Usluga organizacji pikniku rekreacyjno-edukacyjnego dla pracownikow i rodzin Instytutu Lotnictwa w Warszawie.",
+    "opis": "Usluga organizacji pikniku rekreacyjno-edukacyjnego dla Instytutu Lotnictwa w Warszawie.",
     "tagi": [
       "piknik",
       "event korporacyjny",
@@ -957,18 +1316,18 @@ const DATA = [
   },
   {
     "id": "PT013",
-    "title": "Kompleksowa organizacja warsztatow dla startupow 2026 - Wojewodztwo Podlaskie",
+    "title": "Kompleksowa organizacja warsztatow dla startupow 2026 - Wojewodztwo Podlaskie Bialystok",
     "zam": "Wojewodztwo Podlaskie, Bialystok",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "BZP-20017482301",
+    "nr": "2026/BZP 00174823",
     "zrodlo": "BZP",
     "woj": "Podlaskie",
     "link": "https://www.przetargi.egospodarka.pl/20017482301_BZP-272-15-2026-AR-Kompleksowa-organizacja-warsztatow-dla-startupow-2026_2026_2.html",
-    "opis": "Kompleksowa organizacja warsztatow dla startupow 2026 dla Wojewodztwa Podlaskiego. Zamowienie obejmuje organizacje warsztatu, catering i obsluge techniczna.",
+    "opis": "Kompleksowa organizacja warsztatow dla startupow 2026 dla Wojewodztwa Podlaskiego.",
     "tagi": [
       "warsztaty",
       "startupy",
@@ -977,38 +1336,38 @@ const DATA = [
   },
   {
     "id": "PT014",
-    "title": "Kompleksowa organizacja i obsluga warsztatow 2026 - Pomoc Techniczna dla Funduszy Europejskich",
-    "zam": "Urzad Statystyczny w Zielonej Gorze",
+    "title": "Organizacja dwoch Konferencji MPKU oraz EGM - Wojewodzki Urzad Pracy Krakow",
+    "zam": "Wojewodzki Urzad Pracy w Krakowie",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
-    "termin": "2026-04-10",
-    "nr": "BZP-20018068801",
+    "termin": "2026-04-08",
+    "nr": "2026/BZP 00179654",
     "zrodlo": "BZP",
-    "woj": "Lubuskie",
-    "link": "https://www.przetargi.egospodarka.pl/20018068801_Kompleksowa-organizacja-i-obsluga-warsztatow-w-2026-roku-w-ramach-realizacji-projektu-wspolfinansowanego-ze-srodkow-programu-Pomoc-Techniczna-dla-Funduszy-Europejskich-2021-2027_2026_2.html",
-    "opis": "Kompleksowa organizacja i obsluga warsztatow w 2026 roku w ramach realizacji projektu Pomoc Techniczna dla Funduszy Europejskich 2021-2027.",
+    "woj": "Malopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017965401_Organizacja-dwoch-Konferencji-tj-Konferencji-MPKU-oraz-Konferencji-EGM_2026_2.html",
+    "opis": "Organizacja dwoch konferencji: Konferencji MPKU oraz Konferencji EGM dla Urzedu Pracy w Krakowie.",
     "tagi": [
-      "warsztaty",
+      "konferencja",
       "organizacja",
-      "Lubuskie"
+      "Malopolskie"
     ]
   },
   {
     "id": "PT015",
-    "title": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej - woj. swietokrzyskie",
+    "title": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej - Swietokrzyskie",
     "zam": "Urzad Marszalkowski Wojewodztwa Swietokrzyskiego, Kielce",
     "typ": "MUN",
     "kat": "plat",
-    "status": "new",
+    "status": "eval",
     "wartosc": "Nie podano",
     "termin": "2026-04-08",
-    "nr": "BZP-20017972101",
+    "nr": "2026/BZP 00179721",
     "zrodlo": "BZP",
     "woj": "Swietokrzyskie",
     "link": "https://www.przetargi.egospodarka.pl/20017972101_Kompleksowa-organizacja-wydarzenia-pn-Sieciowanie-podmiotow-ekonomii-spolecznej-z-terenu-wojewodztwa-swietokrzyskiego-w-2026-roku_2026_2.html",
-    "opis": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej z terenu wojewodztwa swietokrzyskiego w 2026 roku.",
+    "opis": "Kompleksowa organizacja wydarzenia Sieciowanie podmiotow ekonomii spolecznej z terenu woj. swietokrzyskiego 2026.",
     "tagi": [
       "event",
       "organizacja",
@@ -1017,7 +1376,7 @@ const DATA = [
   },
   {
     "id": "PT016",
-    "title": "Slanski Kongres Oswiaty - kompleksowa organizacja i przeprowadzenie",
+    "title": "Slanski Kongres Oswiaty - kompleksowa organizacja i przeprowadzenie - RODN WOM Katowice",
     "zam": "Regionalny Osrodek Doskonalenia Nauczycieli WOM, Katowice",
     "typ": "CULT",
     "kat": "plat",
@@ -1028,16 +1387,176 @@ const DATA = [
     "zrodlo": "BZP",
     "woj": "Slaskie",
     "link": "https://ezamowienia.gov.pl/mp-client/search/list/ocds-148610-4baa6de2-edcc-4184-a187-6452eb51bce6",
-    "opis": "Usluga kompleksowej organizacji i przeprowadzenia wydarzenia pn. Slanski Kongres Oswiaty obejmujaca catering, identyfikacje wizualna, kampanie PR i obsluge medialna.",
+    "opis": "Usluga kompleksowej organizacji i przeprowadzenia Slanskiego Kongresu Oswiaty.",
     "tagi": [
       "kongres",
       "edukacja",
       "Slaskie"
     ]
+  },
+  {
+    "id": "CT001",
+    "title": "Świadczenie usług cateringowych na potrzeby premier spektakli i innych wydarzeń - Teatr Śląski Katowice",
+    "zam": "Teatr Śląski im. Stanisława Wyspiańskiego w Katowicach",
+    "typ": "CULT",
+    "kat": "catering",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-05-26",
+    "nr": "BZP-20019406601",
+    "zrodlo": "BZP",
+    "woj": "Śląskie",
+    "link": "https://www.przetargi.egospodarka.pl/20019406601_Swiadczenie-uslug-cateringowych-realizowanych-na-potrzeby-premier-spektakli-i-innych-wydarzen-organizowanych-lub-wspolorganizowanych-przez-Teatr-Slaski-im-Stanislawa-Wyspianskiego-w-Katowicach_2026_2.html",
+    "opis": "Świadczenie usług cateringowych na potrzeby premier spektakli i innych wydarzeń organizowanych przez Teatr Śląski w Katowicach. Umowa na 12 miesięcy od daty zawarcia.",
+    "tagi": [
+      "catering",
+      "teatr",
+      "Śląskie"
+    ]
+  },
+  {
+    "id": "CT002",
+    "title": "Usługa przygotowania i przeprowadzenia 4 imprez plenerowych - Województwo Śląskie",
+    "zam": "Województwo Śląskie, Katowice",
+    "typ": "MUN",
+    "kat": "catering",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-25",
+    "nr": "BZP-20016043601",
+    "zrodlo": "BZP",
+    "woj": "Śląskie",
+    "link": "https://www.przetargi.egospodarka.pl/20016043601_Usluga-przygotowania-i-przeprowadzenia-4-imprez-w-formie-wydarzen-plenerowych_2026_2.html",
+    "opis": "Usługa przygotowania i przeprowadzenia 4 imprez w formie wydarzeń plenerowych z obsługą cateringową. Wadium 21 000 zł. Realizacja do 30 czerwca 2026 r.",
+    "tagi": [
+      "catering",
+      "impreza plenerowa",
+      "Śląskie"
+    ]
+  },
+  {
+    "id": "CT003",
+    "title": "Świadczenie usług cateringowych na spotkania ze środowiskiem biznesowym - Miasto Gorzów",
+    "zam": "Miasto Gorzów Wielkopolski",
+    "typ": "MUN",
+    "kat": "catering",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-28",
+    "nr": "BZP-catering-gorzow-2026",
+    "zrodlo": "BZP",
+    "woj": "Lubuskie",
+    "link": "https://www.przetargi.egospodarka.pl/Uslugi-przygotowywania-posilkow",
+    "opis": "Świadczenie usług cateringowych na potrzeby spotkań ze środowiskiem biznesowym organizowanych przez Miasto Gorzów Wielkopolski.",
+    "tagi": [
+      "catering",
+      "event biznesowy",
+      "Lubuskie"
+    ]
+  },
+  {
+    "id": "CT004",
+    "title": "Sukcesywne świadczenie usług cateringowych - Urząd Marszałkowski Województwa Śląskiego",
+    "zam": "Urząd Marszałkowski Województwa Śląskiego, Katowice",
+    "typ": "MUN",
+    "kat": "catering",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-30",
+    "nr": "BZP-catering-slaskie-2026",
+    "zrodlo": "BZP",
+    "woj": "Śląskie",
+    "link": "https://www.przetargi.egospodarka.pl/Uslugi-przygotowywania-posilkow",
+    "opis": "Sukcesywne świadczenie usług cateringowych na rzecz Urzędu Marszałkowskiego Województwa Śląskiego zgodnie z częściami — obsługa konferencji, narad i wydarzeń.",
+    "tagi": [
+      "catering",
+      "konferencja",
+      "Śląskie"
+    ]
+  },
+  {
+    "id": "CT005",
+    "title": "Usługa cateringowa realizowana w GOS Wysoki Kamień w Szklarskiej Porębie - Akademia Wojsk Lądowych",
+    "zam": "Akademia Wojsk Lądowych, Wrocław",
+    "typ": "SSP",
+    "kat": "catering",
+    "status": "new",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-25",
+    "nr": "BZP-20018744501",
+    "zrodlo": "BZP",
+    "woj": "Dolnośląskie",
+    "link": "https://www.przetargi.egospodarka.pl/20018744501_Usluga-cateringowa-realizowana-w-GOS-Wysoki-Kamien-w-Szklarskiej-Porebie_2026_2.html",
+    "opis": "Usługa cateringu polegająca na zapewnieniu wyżywienia podczas wydarzeń w Górskim Ośrodku Szkoleniowym Wysoki Kamień w Szklarskiej Porębie.",
+    "tagi": [
+      "catering",
+      "event wojskowy",
+      "Dolnośląskie"
+    ]
+  },
+  {
+    "id": "NP001",
+    "title": "Świadczenie kompleksowych usług cateringowych - Wydział ds. Przedsiębiorczości i Innowacji Krakowa 2026",
+    "zam": "Gmina Miejska Kraków - Urząd Miasta Krakowa",
+    "typ": "MUN",
+    "kat": "catering",
+    "status": "eval",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-08",
+    "nr": "BZP-20017936601",
+    "zrodlo": "BZP",
+    "woj": "Małopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017936601_Swiadczenie-kompleksowych-uslug-cateringowych-zlecanych-przez-Wydzial-ds-Przedsiebiorczosci-i-Innowacji-w-2026-roku_2026_2.html",
+    "opis": "Świadczenie kompleksowych usług cateringowych zlecanych przez Wydział ds. Przedsiębiorczości i Innowacji Urzędu Miasta Krakowa w 2026 roku — obsługa spotkań biznesowych i eventów.",
+    "tagi": [
+      "catering",
+      "event biznesowy",
+      "Małopolskie"
+    ]
+  },
+  {
+    "id": "NP002",
+    "title": "Usługa kompleksowej realizacji akcji informacyjno-promocyjnej - Zwiedzaj Region ze Świętokrzyskim Podróżnikiem Europejskim",
+    "zam": "Województwo Świętokrzyskie - Urząd Marszałkowski, Kielce",
+    "typ": "MUN",
+    "kat": "plat",
+    "status": "eval",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-09",
+    "nr": "BZP-20017930901",
+    "zrodlo": "BZP",
+    "woj": "Świętokrzyskie",
+    "link": "https://www.przetargi.egospodarka.pl/20017930901_USLUGA-KOMPLEKSOWEJ-REALIZACJI-ZADANIA-POLEGAJACEGO-NA-ZORGANIZOWANIU-AKCJI-INFORMACYJNO-PROMOCYJNEJ-PN-ZWIEDZAJ-REGION-ZE-SWIETOKRZYSKIM-PODROZNIKIEM-EUROPEJSKIM_2026_2.html",
+    "opis": "Usługa kompleksowej realizacji zadania polegającego na zorganizowaniu akcji informacyjno-promocyjnej pn. Zwiedzaj Region ze Świętokrzyskim Podróżnikiem Europejskim.",
+    "tagi": [
+      "event promocyjny",
+      "akcja regionalna",
+      "Świętokrzyskie"
+    ]
+  },
+  {
+    "id": "NP003",
+    "title": "Organizacja konferencji - Politechnika Krakowska - Bal Jubileuszowy 50-lecia Wydziału",
+    "zam": "Politechnika Krakowska, Kraków",
+    "typ": "SSP",
+    "kat": "plat",
+    "status": "eval",
+    "wartosc": "Nie podano",
+    "termin": "2026-04-15",
+    "nr": "BZP-politechnika-krakow-2026",
+    "zrodlo": "BZP",
+    "woj": "Małopolskie",
+    "link": "https://www.przetargi.egospodarka.pl/Uslugi-w-zakresie-organizacji-imprez",
+    "opis": "Kompleksowa usługa organizacji i obsługi Balu Jubileuszowego z okazji 50-lecia Wydziału Inżynierii Elektrycznej i Komputerowej Politechniki Krakowskiej.",
+    "tagi": [
+      "gala",
+      "jubileusz",
+      "Małopolskie"
+    ]
   }
 ];
 
-let wk = 14;
+let wk = 16;
 
 const WK_DATES = {
   13:"18–24 marca 2026",
@@ -1060,31 +1579,46 @@ function chWeek(d) {
   // Generuj link do wyszukiwarki BZP/TED z tytułem przetargu
   function linkOgloszenia(t) {
     if (t.link) return t.link;
-    var fraza = encodeURIComponent(t.title.substring(0, 80));
-    return "https://www.przetargi.egospodarka.pl/szukaj/" + fraza + "/0/1/";
+    return "https://www.przetargi.egospodarka.pl/szukaj/" + encodeURIComponent(t.title.substring(0, 60)) + "/0/1/";
   }
 // Ocenia jak bardzo przetarg pasuje do profilu firmy (systemy eventowe)
 // Zwraca { pct: 0-100, level: 'high'|'mid'|'low', powody: [...] }
 
 const KRYTERIA = [
+  // IT / systemy eventowe
   { slowa: ['aplikacja mobilna','aplikację mobilną','app mobilna'], waga: 20, etykieta: 'aplikacja mobilna' },
   { slowa: ['akredytacja','akredytacji','akredytacyjn'], waga: 18, etykieta: 'system akredytacji' },
   { slowa: ['ticketing','sprzedaż biletów','sprzedaży biletów','system biletowy'], waga: 18, etykieta: 'ticketing / bilety' },
   { slowa: ['platforma eventowa','zarządzania eventami','zarządzania imprezami','event management'], waga: 16, etykieta: 'platforma eventowa' },
   { slowa: ['rejestracja uczestników','rejestracji uczestników'], waga: 15, etykieta: 'rejestracja uczestników' },
-  { slowa: ['impreza masowa','imprez masowych','masowej imprezy'], waga: 14, etykieta: 'impreza masowa' },
-  { slowa: ['konferencja','konferencji','kongres'], waga: 10, etykieta: 'konferencja / kongres' },
-  { slowa: ['festiwal','festiwalu'], waga: 10, etykieta: 'festiwal' },
-  { slowa: ['stadion','arena','hala widowisk'], waga: 10, etykieta: 'stadion / arena' },
-  { slowa: ['ios','android','mobiln'], waga: 8, etykieta: 'platforma mobilna' },
-  { slowa: ['rfid','qr kod','kontrola dostępu','bramka'], waga: 8, etykieta: 'kontrola dostępu' },
+  { slowa: ['rfid','qr kod','kontrola dostępu','bramka'], waga: 12, etykieta: 'kontrola dostępu' },
+  { slowa: ['ios','android','mobiln'], waga: 10, etykieta: 'platforma mobilna' },
   { slowa: ['system informatyczny','oprogramowanie','platforma','wdrożenie'], waga: 5, etykieta: 'system IT' },
+  // Imprezy masowe plenerowe
+  { slowa: ['impreza masowa','imprez masowych','impreza plenerowa','piknik','festyn','dni miasta'], waga: 18, etykieta: 'impreza masowa / plenerowa' },
+  { slowa: ['festiwal','festiwalu','festival'], waga: 16, etykieta: 'festiwal' },
+  { slowa: ['koncert','koncertu','show','widowisko'], waga: 12, etykieta: 'koncert / show' },
+  // Konferencje i kongresy
+  { slowa: ['konferencja','konferencji','kongres','sympozjum','seminarium'], waga: 15, etykieta: 'konferencja / kongres' },
+  { slowa: ['organizacja konferencji','obsługa konferencji','kompleksowa organizacja'], waga: 18, etykieta: 'organizacja konferencji' },
+  // Eventy korporacyjne
+  { slowa: ['team building','integracyjn','gala','jubileusz','event korporacyjny','impreza firmowa'], waga: 16, etykieta: 'event korporacyjny' },
+  { slowa: ['bankiet','uroczystość','ceremonia','wręczenie nagród'], waga: 12, etykieta: 'gala / uroczystość' },
+  // Eventy sportowe
+  { slowa: ['zawody','turniej','mistrzostwa','rozgrywki','mecz','liga','maraton','bieg'], waga: 14, etykieta: 'event sportowy' },
+  { slowa: ['stadion','arena','hala sportowa','obiekt sportowy'], waga: 10, etykieta: 'obiekt sportowy' },
+  // Eventy kulturalne
+  { slowa: ['wystawa','targi','ekspozycja','wernisaż'], waga: 14, etykieta: 'wystawa / targi' },
+  { slowa: ['teatr','opera','filharmonia','spektakl'], waga: 10, etykieta: 'event kulturalny' },
+  // Obsługa techniczna
+  { slowa: ['nagłośnienie','oświetlenie','scena','obsługa techniczna','realizacja techniczna'], waga: 14, etykieta: 'obsługa techniczna' },
+  { slowa: ['catering','obsługa gastronomiczna'], waga: 8, etykieta: 'catering' },
 ];
 
-// Premia za typ podmiotu (interesują nas SSP i CULT)
-const PREMIA_TYP = { SSP: 10, CULT: 8, MUN: 4 };
+// Premia za typ podmiotu
+const PREMIA_TYP = { SSP: 10, CULT: 10, MUN: 6 };
 // Premia za kategorię
-const PREMIA_KAT = { app: 12, acc: 12, plat: 8 };
+const PREMIA_KAT = { app: 12, acc: 12, plat: 8, event: 10 };
 
 function dopasowanie(t) {
   const tekst = (t.title + ' ' + t.opis + ' ' + t.tagi.join(' ')).toLowerCase();
@@ -1104,6 +1638,350 @@ function dopasowanie(t) {
   const pct = Math.min(Math.round(punkty / 1.3), 100);
   const level = pct >= 70 ? 'high' : pct >= 40 ? 'mid' : 'low';
   return { pct, level, powody: powody.slice(0, 3) };
+}
+
+
+// ── WIDOK ──────────────────────────────────────────────────
+var currentView = 'lista';
+function setView(v) {
+  currentView = v;
+  document.getElementById('btn-lista').classList.toggle('active', v === 'lista');
+  document.getElementById('btn-kanban').classList.toggle('active', v === 'kanban');
+  document.getElementById('list').style.display = v === 'lista' ? 'flex' : 'none';
+  document.getElementById('kanban-board').classList.toggle('active', v === 'kanban');
+  if (v === 'kanban') renderKanban();
+}
+
+function renderKanban() {
+  var ft = document.getElementById('f-typ').value;
+  var fk = document.getElementById('f-kat').value;
+  var list = DATA.filter(function(t) {
+    return (!ft || t.typ === ft) && (!fk || t.kat === fk);
+  });
+  var cols = { new: [], eval: [], closed: [] };
+  list.forEach(function(t) { (cols[t.status] || cols['closed']).push(t); });
+
+  ['new','eval','closed'].forEach(function(st) {
+    var colId = st === 'new' ? 'k-new' : st === 'eval' ? 'k-eval' : 'k-old';
+    var cntId = st === 'new' ? 'k-new-cnt' : st === 'eval' ? 'k-eval-cnt' : 'k-old-cnt';
+    document.getElementById(cntId).textContent = cols[st].length;
+    document.getElementById(colId).innerHTML = cols[st].length === 0
+      ? '<div style="color:var(--text3);font-size:11px;padding:8px;text-align:center;">Brak</div>'
+      : cols[st].map(function(t) {
+          var dm = dopasowanie(t);
+          return '<div class="kanban-card" onclick="scrollToCard(\''+t.id+'\')">'+
+            '<div class="kanban-card-title">'+t.title+'</div>'+
+            '<div class="kanban-card-meta">'+
+              '<span>'+t.woj+'</span>'+
+              '<span>'+t.termin+'</span>'+
+              '<span class="kanban-card-score '+dm.level+'">'+dm.pct+'%</span>'+
+            '</div>'+
+          '</div>';
+        }).join('');
+  });
+}
+
+function scrollToCard(id) {
+  setView('lista');
+  render();
+  setTimeout(function() {
+    var el = document.getElementById('card-'+id);
+    if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.style.borderColor = 'var(--accent)'; setTimeout(function(){ el.style.borderColor = ''; }, 1500); }
+  }, 100);
+}
+
+// ── NOTATKI ────────────────────────────────────────────────
+function toggleNota(id) {
+  var area = document.getElementById('nota-'+id);
+  if (!area) return;
+  var isOpen = area.classList.contains('open');
+  area.classList.toggle('open', !isOpen);
+  if (!isOpen) {
+    var saved = localStorage.getItem('nota_'+id) || '';
+    area.querySelector('textarea').value = saved;
+  }
+}
+
+function saveNota(id) {
+  var area = document.getElementById('nota-'+id);
+  var val = area.querySelector('textarea').value.trim();
+  if (val) localStorage.setItem('nota_'+id, val);
+  else localStorage.removeItem('nota_'+id);
+  updateNotaBtn(id);
+  area.classList.remove('open');
+}
+
+function updateNotaBtn(id) {
+  var btn = document.getElementById('notabtn-'+id);
+  if (!btn) return;
+  var has = !!localStorage.getItem('nota_'+id);
+  btn.classList.toggle('has-nota', has);
+  btn.textContent = has ? '📝 Notatka ✓' : '📝 Notatka';
+}
+
+// ── CHECKLIST ──────────────────────────────────────────────
+var CHECKLIST_ITEMS = [
+  'Pobierz SWZ / dokumentację przetargową',
+  'Sprawdź warunki udziału i wymagane dokumenty',
+  'Oceń zgodność oferty z wymaganiami',
+  'Przygotuj wycenę / kosztorys',
+  'Napisz opis metodologii realizacji',
+  'Przygotuj referencje i portfolio',
+  'Skompletuj dokumenty rejestrowe firmy',
+  'Złóż ofertę przed terminem'
+];
+
+function toggleChecklist(id) {
+  var area = document.getElementById('chk-'+id);
+  if (!area) return;
+  area.classList.toggle('open');
+  updateChecklistProgress(id);
+}
+
+function toggleCheckItem(id, idx) {
+  var key = 'chk_'+id+'_'+idx;
+  var val = localStorage.getItem(key);
+  if (val) localStorage.removeItem(key);
+  else localStorage.setItem(key, '1');
+  updateChecklistProgress(id);
+  var item = document.querySelector('#chk-'+id+' .chk-item-'+idx);
+  if (item) item.classList.toggle('checked', !val);
+  var btn = document.getElementById('chkbtn-'+id);
+  if (btn) updateChecklistBtn(id);
+}
+
+function updateChecklistProgress(id) {
+  var done = CHECKLIST_ITEMS.filter(function(_,i){ return !!localStorage.getItem('chk_'+id+'_'+i); }).length;
+  var prog = document.getElementById('chk-prog-'+id);
+  if (prog) prog.textContent = done + ' / ' + CHECKLIST_ITEMS.length + ' kroków ukończono';
+  updateChecklistBtn(id);
+}
+
+function updateChecklistBtn(id) {
+  var done = CHECKLIST_ITEMS.filter(function(_,i){ return !!localStorage.getItem('chk_'+id+'_'+i); }).length;
+  var btn = document.getElementById('chkbtn-'+id);
+  if (!btn) return;
+  btn.classList.toggle('done', done === CHECKLIST_ITEMS.length);
+  btn.textContent = done > 0 ? '✅ Checklist ('+done+'/'+CHECKLIST_ITEMS.length+')' : '✅ Checklist';
+}
+
+function buildChecklist(id) {
+  return CHECKLIST_ITEMS.map(function(item, i) {
+    var checked = !!localStorage.getItem('chk_'+id+'_'+i);
+    return '<label class="checklist-item chk-item-'+i+(checked?' checked':'')+'" onclick="toggleCheckItem(\''+id+'\','+i+')" style="cursor:pointer;">'+
+      '<input type="checkbox" '+(checked?'checked':'')+' onclick="event.preventDefault()"> '+item+
+    '</label>';
+  }).join('') + '<div class="checklist-progress" id="chk-prog-'+id+'"></div>';
+}
+
+// ── PORÓWNANIE ─────────────────────────────────────────────
+var cmpList = [];
+
+function toggleCmp(id) {
+  var idx = cmpList.indexOf(id);
+  if (idx >= 0) {
+    cmpList.splice(idx, 1);
+  } else {
+    if (cmpList.length >= 3) { alert('Możesz porównać max 3 przetargi.'); return; }
+    cmpList.push(id);
+  }
+  updateCmpBar();
+  document.querySelectorAll('.cmp-btn').forEach(function(btn) {
+    var bid = btn.getAttribute('data-id');
+    btn.classList.toggle('selected', cmpList.indexOf(bid) >= 0);
+  });
+}
+
+function updateCmpBar() {
+  var bar = document.getElementById('cmp-bar');
+  var chips = document.getElementById('cmp-chips');
+  bar.classList.toggle('active', cmpList.length > 0);
+  chips.innerHTML = cmpList.map(function(id) {
+    var t = DATA.find(function(x){ return x.id === id; });
+    if (!t) return '';
+    return '<div class="cmp-chip"><span>'+t.title.substring(0,35)+'…</span><button onclick="toggleCmp(\''+id+'\')">✕</button></div>';
+  }).join('');
+  // Odśwież stany notatek i checklist
+  DATA.forEach(function(t) {
+    updateNotaBtn(t.id);
+    updateChecklistBtn(t.id);
+  });
+  // Odśwież stan porównania
+  cmpList.forEach(function(id) {
+    var btn = document.querySelector('.cmp-btn[data-id="'+id+'"]');
+    if (btn) btn.classList.add('selected');
+  });
+}
+
+function clearCmp() {
+  cmpList = [];
+  updateCmpBar();
+  document.querySelectorAll('.cmp-btn').forEach(function(b){ b.classList.remove('selected'); });
+}
+
+function openCmpModal() {
+  if (cmpList.length < 2) { alert('Wybierz co najmniej 2 przetargi do porównania.'); return; }
+  var items = cmpList.map(function(id){ return DATA.find(function(x){ return x.id===id; }); }).filter(Boolean);
+  var stLbl = { new: 'Nowe', eval: 'W ocenie', closed: 'Po terminie' };
+  var fields = [
+    { lbl: 'Zamawiający', fn: function(t){ return t.zam; } },
+    { lbl: 'Województwo', fn: function(t){ return t.woj; } },
+    { lbl: 'Termin', fn: function(t){ return t.termin; } },
+    { lbl: 'Status', fn: function(t){ return stLbl[t.status]||t.status; } },
+    { lbl: 'Nr BZP', fn: function(t){ return t.nr; } },
+    { lbl: 'Wartość', fn: function(t){ return t.wartosc; } },
+    { lbl: 'Dopasowanie', fn: function(t){ var d=dopasowanie(t); return d.pct+'%'; } },
+    { lbl: 'Tagi', fn: function(t){ return t.tagi.join(', '); } },
+  ];
+  var html = '<table class="cmp-table"><thead><tr><th>Pole</th>'+
+    items.map(function(t){ return '<th>'+t.title.substring(0,40)+'…</th>'; }).join('')+
+    '</tr></thead><tbody>'+
+    fields.map(function(f){
+      return '<tr><td>'+f.lbl+'</td>'+items.map(function(t){ return '<td>'+f.fn(t)+'</td>'; }).join('')+'</tr>';
+    }).join('')+
+    '</tbody></table>';
+  document.getElementById('cmp-table-wrap').innerHTML = html;
+  document.getElementById('cmpModal').classList.add('open');
+}
+
+function closeCmpModal() {
+  document.getElementById('cmpModal').classList.remove('open');
+}
+
+// ── DNI ROBOCZE ────────────────────────────────────────────
+var HOLIDAYS_2026 = ['2026-01-01','2026-01-06','2026-04-05','2026-04-06','2026-05-01','2026-05-03','2026-05-24','2026-06-11','2026-08-15','2026-11-01','2026-11-11','2026-12-25','2026-12-26'];
+
+function dniRobocze(termin) {
+  if (!termin || termin === '-') return '';
+  var today = new Date(); today.setHours(0,0,0,0);
+  var end = new Date(termin); end.setHours(0,0,0,0);
+  if (end <= today) return '';
+  var count = 0;
+  var cur = new Date(today);
+  while (cur < end) {
+    cur.setDate(cur.getDate()+1);
+    var dow = cur.getDay();
+    var ds = cur.toISOString().substring(0,10);
+    if (dow > 0 && dow < 6 && HOLIDAYS_2026.indexOf(ds) < 0) count++;
+  }
+  var cls = count <= 3 ? 'urgent' : count <= 7 ? 'warn' : '';
+  return '<span class="dni-rob '+cls+'">'+count+' dni rob.</span>';
+}
+
+
+
+// ── ANALITYKA ──────────────────────────────────────────────
+
+var currentChart = 'status';
+
+function switchChart(type, btn) {
+  currentChart = type;
+  document.querySelectorAll('.chart-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderCharts();
+}
+
+function renderCharts() {
+  var ft = document.getElementById('f-typ').value;
+  var fk = document.getElementById('f-kat').value;
+  var list = DATA.filter(function(t){
+    return (!ft || t.typ === ft) && (!fk || t.kat === fk);
+  });
+
+  renderMainChart(list);
+  renderWojChart(list);
+}
+
+function renderMainChart(list) {
+  var el = document.getElementById('chart-main');
+  if (!el) return;
+
+  var groups = {};
+  var colors = {};
+
+  if (currentChart === 'status') {
+    groups = { 'Nowe ogłoszenia': 0, 'W ocenie ofert': 0, 'Po terminie': 0 };
+    colors = { 'Nowe ogłoszenia': 'new', 'W ocenie ofert': 'eval', 'Po terminie': 'old' };
+    list.forEach(function(t) {
+      if (t.status === 'new') groups['Nowe ogłoszenia']++;
+      else if (t.status === 'eval') groups['W ocenie ofert']++;
+      else groups['Po terminie']++;
+    });
+  } else if (currentChart === 'typ') {
+    groups = { 'Spółki miejskie': 0, 'Inst. kultury/sportu': 0, 'Spółki SP': 0 };
+    colors = { 'Spółki miejskie': 'mun', 'Inst. kultury/sportu': 'cult', 'Spółki SP': 'ssp' };
+    list.forEach(function(t) {
+      if (t.typ === 'MUN') groups['Spółki miejskie']++;
+      else if (t.typ === 'CULT') groups['Inst. kultury/sportu']++;
+      else if (t.typ === 'SSP') groups['Spółki SP']++;
+    });
+  } else {
+    groups = { 'Platforma eventowa': 0, 'Aplikacja mobilna': 0, 'System akredytacji': 0, 'Event': 0 };
+    colors = { 'Platforma eventowa': 'woj', 'Aplikacja mobilna': 'new', 'System akredytacji': 'eval', 'Event': 'cult' };
+    list.forEach(function(t) {
+      if (t.kat === 'plat') groups['Platforma eventowa']++;
+      else if (t.kat === 'app') groups['Aplikacja mobilna']++;
+      else if (t.kat === 'acc') groups['System akredytacji']++;
+      else groups['Event']++;
+    });
+  }
+
+  var max = Math.max.apply(null, Object.values(groups)) || 1;
+  el.innerHTML = Object.keys(groups).map(function(k) {
+    var v = groups[k];
+    var pct = Math.round(v / max * 100);
+    return '<div class="bar-row">' +
+      '<div class="bar-lbl" title="'+k+'">'+k+'</div>' +
+      '<div class="bar-track">' +
+        '<div class="bar-fill '+colors[k]+'" style="width:'+pct+'%">' +
+          (pct > 15 ? '<span class="bar-val">'+v+'</span>' : '') +
+        '</div>' +
+      '</div>' +
+      (pct <= 15 ? '<span class="bar-val-out">'+v+'</span>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function renderWojChart(list) {
+  var el = document.getElementById('chart-woj');
+  if (!el) return;
+
+  var woj = {};
+  list.forEach(function(t) {
+    var w = t.woj || 'Inne';
+    woj[w] = (woj[w] || 0) + 1;
+  });
+
+  var sorted = Object.keys(woj).sort(function(a,b){ return woj[b]-woj[a]; });
+  var max = woj[sorted[0]] || 1;
+
+  el.innerHTML = sorted.map(function(k) {
+    var v = woj[k];
+    var pct = Math.round(v / max * 100);
+    return '<div class="bar-row">' +
+      '<div class="bar-lbl" title="'+k+'">'+k+'</div>' +
+      '<div class="bar-track">' +
+        '<div class="bar-fill woj" style="width:'+pct+'%">' +
+          (pct > 15 ? '<span class="bar-val">'+v+'</span>' : '') +
+        '</div>' +
+      '</div>' +
+      (pct <= 15 ? '<span class="bar-val-out">'+v+'</span>' : '') +
+    '</div>';
+  }).join('');
+}
+
+
+
+
+function copyAnalyzePromptById(id) {
+  var t = DATA.find(function(x) { return x.id === id; });
+  if (!t) return;
+  var txt = 'Przeprowadź szczegółową analizę przetargu: "' + t.title + '" (' + t.nr + '). Zamawiający: ' + t.zam + '. Wartość: ' + t.wartosc + '. Podaj: 1) kluczowe wymagania techniczne, 2) potencjalnych konkurentów na rynku polskim, 3) rekomendacje jak wygrać, 4) szanse i ryzyka ofertowe.';
+  navigator.clipboard.writeText(txt).then(function() {
+    alert('Prompt skopiowany do schowka.');
+  }).catch(function() {
+    prompt('Skopiuj poniższy prompt:', txt);
+  });
 }
 
 function render() {
@@ -1131,11 +2009,11 @@ function render() {
   const suf = n === 1 ? '' : n < 5 ? 'i' : 'ów';
   document.getElementById('sec-lbl').textContent = n + ' przetarg' + suf + ' · tydzień ' + wk + ' / 2026 · ' + dateRange;
 
-  const stLbl = { new: 'Nowe ogłoszenie', eval: 'W ocenie ofert', closed: 'Rozstrzygnięty' };
+  const stLbl = { new: 'Nowe ogłoszenie', eval: 'W ocenie ofert', closed: 'Po terminie' };
   const stCls = { new: 'b-new', eval: 'b-eval', closed: 'b-closed' };
   const typCls = { SSP: 'tag-ssp', MUN: 'tag-mun', CULT: 'tag-cult' };
   const typLbl = { SSP: 'Sp. Skarbu Państwa', MUN: 'Spółka miejska', CULT: 'Inst. kultury / sportu' };
-  const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa' };
+  const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa', catering: 'Catering / gastronomia', event: 'Event korporacyjny' };
 
   if (!list.length) {
     document.getElementById('list').innerHTML = '<div class="empty">Brak przetargów spełniających wybrane kryteria.</div>';
@@ -1150,7 +2028,7 @@ function render() {
     const dm = dopasowanie(t);
     const powodyTxt = dm.powody.length ? 'Dopasowanie: ' + dm.powody.join(' | ') : 'Ogólne dopasowanie';
     return `
-    <div class="tc">
+    <div class="tc" id="card-${t.id}">
       <div class="tc-head">
         <div class="tc-title">${t.title}</div>
         <span class="badge ${stCls[t.status]}">${stLbl[t.status]}</span>
@@ -1164,7 +2042,7 @@ function render() {
       <div class="tc-meta">
         <span>🏢 <b>${t.zam}</b></span>
         <span>💰 ${t.wartosc === "Nie podano" ? '<a href="' + linkOgloszenia(t) + '" target="_blank" style="color:var(--text3);font-size:11px;">Sprawdź wartość w ogłoszeniu →</a>' : '<b>' + t.wartosc + '</b>'}</span>
-        <span>📅 Termin: <b>${t.termin}</b> ${dniDoTerminu(t.termin)}</span>
+        <span>📅 Termin: <b>${t.termin}</b> ${dniDoTerminu(t.termin)} ${dniRobocze(t.termin)}</span>
         <span>📋 ${t.nr}</span>
         <span>📌 ${t.zrodlo} · ${t.woj}</span>
       </div>
@@ -1177,8 +2055,17 @@ function render() {
         </div>
         <div class="tc-actions">
           <a class="btn-link" href="${linkOgloszenia(t)}" target="_blank">Przejdź do ogłoszenia ↗</a>
-          <button class="btn-src" onclick="alert('Nr ogłoszenia: ${t.nr}\\nŹródło: ${t.zrodlo}\\nZamawiający: ${t.zam}\\nWartość: ${t.wartosc}\\nTermin: ${t.termin}')">Szczegóły</button>
-          <button class="btn-analyze" onclick="copyAnalyzePrompt(this)">Kopiuj prompt analizy ↗</button>
+          <button class="nota-btn" id="notabtn-${t.id}" onclick="toggleNota('${t.id}')">📝 Notatka</button>
+          <button class="checklist-btn" id="chkbtn-${t.id}" onclick="toggleChecklist('${t.id}')">✅ Checklist</button>
+          <button class="cmp-btn" data-id="${t.id}" onclick="toggleCmp('${t.id}')">⚖️ Porównaj</button>
+          <button class="btn-analyze" onclick="copyAnalyzePromptById('${t.id}')">Kopiuj prompt analizy ↗</button>
+        </div>
+        <div class="nota-area" id="nota-${t.id}">
+          <textarea class="nota-textarea" placeholder="Twoje notatki do tego przetargu..."></textarea>
+          <button class="nota-save" onclick="saveNota('${t.id}')">Zapisz notatkę</button>
+        </div>
+        <div class="checklist-area" id="chk-${t.id}">
+          ${buildChecklist('${t.id}')}
         </div>
       </div>
     </div>`;
@@ -1202,11 +2089,12 @@ function copyAnalyzePrompt(title, nr, zam, wartosc) {
 }
 
 function exportCSV() {
-  const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa' };
+  const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa', catering: 'Catering / gastronomia', event: 'Event korporacyjny' };
   const typLbl = { SSP: 'Spółka Skarbu Państwa', MUN: 'Spółka miejska', CULT: 'Instytucja kultury/sportu' };
   const stLbl = { new: 'Nowe', eval: 'W ocenie', closed: 'Rozstrzygnięte' };
+  const exportData = currentList.length ? currentList : DATA;
   const h = ['ID','Tytuł','Zamawiający','Województwo','Typ podmiotu','Kategoria','Status','Wartość szacunkowa','Termin składania ofert','Nr ogłoszenia','Źródło','Tagi'];
-  const rows = DATA.map(t => [
+  const rows = exportData.map(t => [
     t.id, `"${t.title}"`, `"${t.zam}"`, t.woj,
     typLbl[t.typ], katLbl[t.kat], stLbl[t.status],
     t.wartosc, t.termin, t.nr, t.zrodlo, `"${t.tagi.join(', ')}"`
@@ -1284,7 +2172,42 @@ function toggleArchiwumWpis(i) {
 }
 
 // Inicjalizuj archiwum przy starcie
-document.addEventListener('DOMContentLoaded', function() { renderArchiwum(); });
+
+
+function szukajBZP() {
+    var nr = (document.getElementById('bzp-input').value || '').trim();
+    if (!nr) return;
+    // Format: 2026/BZP 00196108 -> 2026%2FBZP%2000196108
+    var m = nr.match(/(\d{4})\/BZP\s*(\d+)/i);
+    if (m) {
+      var url = 'https://ezamowienia.gov.pl/mo-client-board/bzp/notice-details/' + m[1] + '%2FBZP%20' + m[2] + '%2F01';
+      window.open(url, '_blank');
+    } else {
+      // Fallback - szukaj po frazie
+      window.open('https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase=' + encodeURIComponent(nr), '_blank');
+    }
+  }
+
+  function renderBzpListaRaportu() {
+    var el = document.getElementById('bzp-lista-raportu');
+    if (!el) return;
+    var items = DATA.filter(function(t) { return t.nr && t.nr !== '—'; });
+    if (!items.length) { el.innerHTML = '<span style="color:var(--text3);font-size:12px;">Brak numerów BZP w bieżącym raporcie.</span>'; return; }
+    el.innerHTML = items.map(function(t) {
+      var encoded = encodeURIComponent(t.nr);
+      var url = 'https://ezamowienia.gov.pl/mo-client-board/bzp/list?searchPhrase=' + encoded;
+      return '<a href="' + url + '" target="_blank" style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-radius:6px;background:var(--surface2);text-decoration:none;color:var(--text);font-size:12px;">' +
+        '<span style="color:var(--text3);font-weight:600;margin-right:8px;">' + t.id + '</span>' +
+        '<span style="flex:1;color:var(--text2);">' + t.title.substring(0,55) + '…</span>' +
+        '<span style="color:var(--accent);margin-left:8px;white-space:nowrap;">' + t.nr + ' →</span>' +
+        '</a>';
+    }).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderArchiwum();
+    renderBzpListaRaportu();
+  });
 
 function exportTXT() {
   const lines = [
@@ -1297,7 +2220,8 @@ function exportTXT() {
     'Źródła: BZP (Biuletyn Zamówień Publicznych), TED (Dziennik UE), BIP',
     '─'.repeat(68), ''
   ];
-  DATA.forEach((t, i) => {
+  const exportData2 = currentList.length ? currentList : DATA;
+  exportData2.forEach((t, i) => {
     lines.push(`[${t.id}] ${t.title}`);
     lines.push(`  Zamawiający : ${t.zam}`);
     lines.push(`  Wartość     : ${t.wartosc}`);
@@ -1317,8 +2241,9 @@ function exportTXT() {
 
 function dniDoTerminu(termin) {
   if (!termin || termin === '-') return '';
-  var d = new Date(termin) - new Date();
-  var dni = Math.ceil(d / 86400000);
+  var today = new Date(); today.setHours(0,0,0,0);
+  var end = new Date(termin); end.setHours(0,0,0,0);
+  var dni = Math.ceil((end - today) / 86400000);
   if (dni < 0) return '<span style="color:var(--text3);font-size:11px">(po terminie)</span>';
   if (dni === 0) return '<span style="color:var(--red);font-size:11px;font-weight:700">(dziś!)</span>';
   if (dni <= 3) return '<span style="color:var(--red);font-size:11px;font-weight:700">(' + dni + ' dni!)</span>';
@@ -1345,30 +2270,40 @@ function doAnalyze(idx) {
 
 var currentList = [];
 
-function showMatchInfo() {
-  document.getElementById('matchModal').classList.add('open');
-}
-function closeMatchInfo() {
-  document.getElementById('matchModal').classList.remove('open');
+
+function toggleKorp(btn) {
+  var sekcja = document.getElementById('sekcja-korp');
+  var isOpen = sekcja.style.display !== 'none';
+  // Zamknij wszystkie normalne zakładki
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (isOpen) {
+    sekcja.style.display = 'none';
+  } else {
+    sekcja.style.display = 'block';
+    btn.classList.add('active');
+    // Aktywuj domyślną zakładkę sources
+    var free = document.getElementById('tab-free');
+    if (free) free.classList.add('active');
+  }
 }
 
-function copyAnalyzePrompt(title, nr, zam, wartosc) {
-  var txt = 'Przeprowadz analize przetargu: "' + title + '" (' + nr + '). Zamawiajacy: ' + zam + '. Wartosc: ' + wartosc;
-  navigator.clipboard.writeText(txt).then(function() {
-    alert('Prompt skopiowany!');
-  }).catch(function() {
-    prompt('Skopiuj prompt:', txt);
-  });
-}
-
-function switchTab(name) {
+function switchTab(name, btn) {
+  if (name === 'bzpsearch') renderBzpListaRaportu();
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  event.target.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
 
 render();
+  renderCharts();
+
+  // Aktualizuj wykresy po każdej zmianie filtrów
+  ['f-typ','f-kat','f-st'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', function(){ setTimeout(renderCharts, 50); });
+  });
 </script>
 </body>
 </html>
