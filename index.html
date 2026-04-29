@@ -464,7 +464,7 @@
       <option value="">Wszystkie statusy</option>
       <option value="new">Nowe ogłoszenia</option>
       <option value="eval">W trakcie oceny</option>
-      <option value="closed">Rozstrzygnięte</option>
+      <option value="old">Rozstrzygnięte</option>
     </select>
     <div class="view-toggle">
       <button class="view-btn active" id="btn-lista" onclick="setView('lista')">☰ Lista</button>
@@ -1798,10 +1798,10 @@ function renderKanban() {
   var list = DATA.filter(function(t) {
     return (!ft || t.typ === ft) && (!fk || t.kat === fk);
   });
-  var cols = { new: [], eval: [], closed: [] };
-  list.forEach(function(t) { (cols[t.status] || cols['closed']).push(t); });
+  var cols = { new: [], eval: [], old: [] };
+  list.forEach(function(t) { (cols[t.status] || cols['old']).push(t); });
 
-  ['new','eval','closed'].forEach(function(st) {
+  ['new','eval','old'].forEach(function(st) {
     var colId = st === 'new' ? 'k-new' : st === 'eval' ? 'k-eval' : 'k-old';
     var cntId = st === 'new' ? 'k-new-cnt' : st === 'eval' ? 'k-eval-cnt' : 'k-old-cnt';
     document.getElementById(cntId).textContent = cols[st].length;
@@ -1962,7 +1962,7 @@ function clearCmp() {
 function openCmpModal() {
   if (cmpList.length < 2) { alert('Wybierz co najmniej 2 przetargi do porównania.'); return; }
   var items = cmpList.map(function(id){ return DATA.find(function(x){ return x.id===id; }); }).filter(Boolean);
-  var stLbl = { new: 'Nowe', eval: 'W ocenie', closed: 'Po terminie' };
+  var stLbl = { new: 'Nowe', eval: 'W ocenie', old: 'Po terminie' };
   var fields = [
     { lbl: 'Zamawiający', fn: function(t){ return t.zam; } },
     { lbl: 'Województwo', fn: function(t){ return t.woj; } },
@@ -2138,19 +2138,19 @@ function render() {
   document.getElementById('s-all').textContent = list.length;
   document.getElementById('s-new').textContent = list.filter(x => x.status === 'new').length;
   document.getElementById('s-ev').textContent = list.filter(x => x.status === 'eval').length;
-  document.getElementById('s-cl').textContent = list.filter(x => x.status === 'closed').length;
+  document.getElementById('s-cl').textContent = list.filter(x => x.status === 'old').length;
   document.getElementById('hkpi-all').textContent = list.length;
   document.getElementById('hkpi-new').textContent = list.filter(x => x.status === 'new').length;
   document.getElementById('hkpi-ev').textContent = list.filter(x => x.status === 'eval').length;
-  document.getElementById('hkpi-cl').textContent = list.filter(x => x.status === 'closed').length;
+  document.getElementById('hkpi-cl').textContent = list.filter(x => x.status === 'old').length;
 
   const dateRange = WK_DATES[wk] || ('tydzień ' + wk + '/2026');
   const n = list.length;
   const suf = n === 1 ? '' : n < 5 ? 'i' : 'ów';
   document.getElementById('sec-lbl').textContent = n + ' przetarg' + suf + ' · tydzień ' + wk + ' / 2026 · ' + dateRange;
 
-  const stLbl = { new: 'Nowe ogłoszenie', eval: 'W ocenie ofert', closed: 'Po terminie' };
-  const stCls = { new: 'b-new', eval: 'b-eval', closed: 'b-closed' };
+  const stLbl = { new: 'Nowe ogłoszenie', eval: 'W ocenie ofert', old: 'Po terminie' };
+  const stCls = { new: 'b-new', eval: 'b-eval', old: 'b-closed' };
   const typCls = { SSP: 'tag-ssp', MUN: 'tag-mun', CULT: 'tag-cult' };
   const typLbl = { SSP: 'Sp. Skarbu Państwa', MUN: 'Spółka miejska', CULT: 'Inst. kultury / sportu' };
   const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa', catering: 'Catering / gastronomia', event: 'Event korporacyjny' };
@@ -2231,7 +2231,7 @@ function copyAnalyzePrompt(title, nr, zam, wartosc) {
 function exportCSV() {
   const katLbl = { app: 'Aplikacja mobilna', acc: 'System akredytacji', plat: 'Platforma eventowa', catering: 'Catering / gastronomia', event: 'Event korporacyjny' };
   const typLbl = { SSP: 'Spółka Skarbu Państwa', MUN: 'Spółka miejska', CULT: 'Instytucja kultury/sportu' };
-  const stLbl = { new: 'Nowe', eval: 'W ocenie', closed: 'Rozstrzygnięte' };
+  const stLbl = { new: 'Nowe', eval: 'W ocenie', old: 'Rozstrzygnięte' };
   const exportData = currentList.length ? currentList : DATA;
   const h = ['ID','Tytuł','Zamawiający','Województwo','Typ podmiotu','Kategoria','Status','Wartość szacunkowa','Termin składania ofert','Nr ogłoszenia','Źródło','Tagi'];
   const rows = exportData.map(t => [
