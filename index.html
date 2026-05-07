@@ -461,10 +461,11 @@
       <option value="catering">Catering / obsługa gastronomiczna</option>
     </select>
     <select id="f-st" onchange="render()">
-      <option value="">Wszystkie statusy</option>
+      <option value="">Aktywne (bez archiwalnych)</option>
+      <option value="all">Wszystkie (z archiwalnymi)</option>
       <option value="new">Nowe ogłoszenia</option>
       <option value="eval">W trakcie oceny</option>
-      <option value="old">Rozstrzygnięte</option>
+      <option value="old">Rozstrzygnięte (po terminie)</option>
     </select>
     <div class="view-toggle">
       <button class="view-btn active" id="btn-lista" onclick="setView('lista')">☰ Lista</button>
@@ -2312,7 +2313,7 @@ function render() {
   const list = DATA.filter(t =>
     (!ft || t.typ === ft) &&
     (!fk || t.kat === fk) &&
-    (!fs || t.status === fs)
+    (fs === 'all' ? true : fs ? t.status === fs : t.status !== 'old')
   );
 
   document.getElementById('s-all').textContent = list.length;
